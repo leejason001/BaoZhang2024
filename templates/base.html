@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        {% block css %}
+            <link type="text/css" rel="stylesheet" href="/font_statics/css/base.css">
+        {% endblock %}
 
-</body>
+            <script type="text/javascript" href="/font_statics/js/jquery.js"></script>
+        {% block js %}
+        {% endblock %}
+
+
+    </head>
+    <body>
+        {% block head %}
+        {% endblock %}
+        {% block body %}
+        {% endblock %}
+        {% block footer %}
+        {% endblock %}
+    </body>
 </html>

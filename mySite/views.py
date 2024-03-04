@@ -5,4 +5,4 @@ from django.shortcuts import render, HttpResponse
 
 # Create your views here.
 def index(request):
-    return HttpResponse(1111111111)
+    return render(request, "mySite/mySite_index.html")
