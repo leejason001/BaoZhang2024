@@ -1,4 +1,17 @@
 .navigation_header .content {
     width: 90%;
     margin: 0 auto;
+    clear: both;
+}
+.navigation_header .content > span {
+    float: left;
+    padding: 10px 0;
+    margin-right: 10px;
+}
+.navigation_header .content > a {
+    float: left;
+    padding: 10px;
+}
+.navigation_header span.userArea {
+    float: right;
 }
