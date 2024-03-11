@@ -2,10 +2,9 @@
     <div class="content">
         <span>老子的技术论坛</span>
         <a>全部</a>
-        <a>Python</a>
-        <a>Linux</a>
-        <a>OpenStack</a>
-        <a>GoLang</a>
+        {% for type in articleTypes %}
+            <a>{{ type.1 }}</a>
+        {% endfor %}
         <span class="userArea">
             <span>{{ username }}</span>
             <span>.</span>
