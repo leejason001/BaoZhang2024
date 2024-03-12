@@ -63,6 +63,8 @@ class articles(models.Model):
     ]
     articleType    = models.IntegerField(choices=type_choices)
     classification = models.ForeignKey(to=classifications)
+    favorCount     = models.IntegerField(default=0)
+    opposeCount    = models.IntegerField(default=0)
 
 class labels(models.Model):
     labelName = models.CharField(max_length=16)

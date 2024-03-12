@@ -3,3 +3,28 @@
 {% block head %}
     {% include "./navigation_header.html" %}
 {% endblock %}
+
+{% block body %}
+    <div class="contentContainer">
+        <div class="leftContent">
+            {% for article in siteArticles %}
+                <div class="element">
+                    <div class="articleTitle">{{ article.title }}</div>
+                    <img src="{{ article.ownerBlog.owner.headPicture_path }}">
+                    <p class="articleSummary">{{ article.summary }}</p>
+                    <div class="elementOthers">
+                        <div class="authorName"></div>
+                        <div class="ctime">{{ article.ctime }}</div>
+                        <div class="comments"></div>
+                        {% if articleCount %}
+                            <div class="favorRelated">
+                                {{ article.favorCount }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="rightContent"></div>
+    </div>
+{% endblock %}

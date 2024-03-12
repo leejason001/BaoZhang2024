@@ -8,7 +8,6 @@ from repository import models
 # Create your views here.
 def index(request):
     navigationClassContent = models.articles.type_choices
-    print navigationClassContent
+    siteArticles           = models.articles.objects.all()
 
-
-    return render(request, "mySite/mySite_index.html", {'articleTypes':navigationClassContent})
+    return render(request, "mySite/mySite_index.html", {'articleTypes':navigationClassContent, 'siteArticles': siteArticles})

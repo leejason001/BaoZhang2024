@@ -15,3 +15,22 @@
 .navigation_header span.userArea {
     float: right;
 }
+.contentContainer {
+    clear: both;
+    width: 88%;
+    margin: 0 auto;
+}
+.contentContainer .leftContent {
+    width: 60%;
+}
+.contentContainer .leftContent .element {
+    position: relative;
+    margin-bottom: 10px;
+}
+.contentContainer .articleSummary {
+    position: absolute;
+    left: 86px;
+    top: 18px;
+    margin: 0;
+}
+
