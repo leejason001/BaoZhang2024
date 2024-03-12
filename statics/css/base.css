@@ -27,10 +27,24 @@
     position: relative;
     margin-bottom: 10px;
 }
+.contentContainer .leftContent .element .elementOthers {
+    display: table-cell;
+    vertical-align: middle;
+}
+.contentVerticalMiddle {
+    vertical-align: middle;
+}
 .contentContainer .articleSummary {
     position: absolute;
     left: 86px;
     top: 18px;
     margin: 0;
+}
+.authorName {
+    margin-left: 2px;
+}
+.contentContainer .ctimeLabel{
+    margin-right: 4px;
+    font-family: SimHei;
 }
 
