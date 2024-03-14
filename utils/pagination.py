@@ -5,7 +5,7 @@ MAX_ELEMENT_NUMS_PER_PAGE = 1
 MAX_SHOW_PAGES_NUM        = 5
 
 def returnPaginations(currentPageNum, siteArticlesNum, paginationHrefPrefix):
-    MAX_PAGES_NUM = int(math.ceil(siteArticlesNum/MAX_ELEMENT_NUMS_PER_PAGE))
+    MAX_PAGES_NUM = int(math.ceil(siteArticlesNum/(MAX_ELEMENT_NUMS_PER_PAGE*1.0)))
     normalExistedLength = int( math.ceil( MAX_SHOW_PAGES_NUM / 2.0 ) )
     paginations = []
 
@@ -30,4 +30,4 @@ def returnPaginations(currentPageNum, siteArticlesNum, paginationHrefPrefix):
             paginations.append( '<a href=' + paginationHrefPrefix + '?currentPageNum=%d>%d</a>' % (startPage, startPage))
             startPage += 1
 
-    return ''.join(paginations), (currentPageNum-1)*MAX_ELEMENT_NUMS_PER_PAGE, (currentPageNum+1)*MAX_ELEMENT_NUMS_PER_PAGE-1
+    return ''.join(paginations), (currentPageNum-1)*MAX_ELEMENT_NUMS_PER_PAGE, currentPageNum*MAX_ELEMENT_NUMS_PER_PAGE
