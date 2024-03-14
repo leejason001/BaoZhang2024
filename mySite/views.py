@@ -15,7 +15,6 @@ def index(request):
         currentPageNum         = int(request.GET.get('currentPageNum'))
     except:
         currentPageNum         = 1
-        print 111111
     paginationHrefPrefix   = "/site/index.html"
     paginations, startItemNum, endItemNum            = pagination.returnPaginations(currentPageNum, siteArticles.count(), paginationHrefPrefix)
     # print startItemNum, endItemNum
