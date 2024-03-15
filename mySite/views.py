@@ -8,9 +8,18 @@ from repository import models
 from utils import pagination
 
 # Create your views here.
+classficiationChoosen = None
+
 def index(request):
     navigationClassContent = models.articles.type_choices
-    siteArticles           = models.articles.objects.all()
+    global classficiationChoosen
+
+    if classficiationChoosen == None or request.GET.get( 'classficiationChoosen' ) != None:
+        classficiationChoosen = request.GET.get( 'classficiationChoosen' )
+    if None == classficiationChoosen or 'all' == classficiationChoosen.strip():
+        siteArticles = models.articles.objects.all()
+    else:
+        siteArticles = models.articles.objects.filter(articleType=int(classficiationChoosen))
     try:
         currentPageNum         = int(request.GET.get('currentPageNum'))
     except:

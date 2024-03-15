@@ -1,9 +1,9 @@
 <div class="navigation_header">
     <div class="content">
         <span>老子的技术论坛</span>
-        <a>全部</a>
+        <a href="/site/index.html?classficiationChoosen=all">全部</a>
         {% for type in articleTypes %}
-            <a>{{ type.1 }}</a>
+            <a href="/site/index.html?classficiationChoosen={{ type.0 }}">{{ type.1 }}</a>
         {% endfor %}
         <span class="userArea">
             <span>{{ username }}</span>
