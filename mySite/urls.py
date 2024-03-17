@@ -1,3 +1,4 @@
+#:coding:utf8
 """BaoZhang2024 URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -14,9 +15,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-import views
+from views import realViews#不同app里的views包同名,是否会发生冲突
 
 urlpatterns = [
-    url(r'(?P<articleType>\d+)', views.index, name='mySiteIndex'),
-    url(r'', views.index),
+    url(r'(?P<articleType>\d+)', realViews.index, name='mySiteIndex'),
+    url(r'', realViews.index),
 ]
