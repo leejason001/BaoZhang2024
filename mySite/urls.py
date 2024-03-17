@@ -17,5 +17,6 @@ from django.conf.urls import url
 import views
 
 urlpatterns = [
-    url(r'index.html', views.index),
+    url(r'(?P<articleType>\d+)', views.index, name='mySiteIndex'),
+    url(r'', views.index),
 ]
