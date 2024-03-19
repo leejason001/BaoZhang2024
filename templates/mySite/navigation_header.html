@@ -6,11 +6,15 @@
             <a href={% url "mySiteIndex" articleType=type.0 %}>{{ type.1 }}</a>
         {% endfor %}
         <span class="userArea">
-            <span>{{ username }}</span>
-            <span>.</span>
-            <a href="" class="myBlog">我的博客</a>
-            <span>.</span>
-            <a>管理</a>|<a>退出</a>
+            {% if request.session.username %}
+                <span>{{ username }}</span>
+                <span>.</span>
+                <a href="" class="myBlog">我的博客</a>
+                <span>.</span>
+                <a>管理</a>|<a>退出</a>
+            {% else %}
+                <a href={% url 'register' %}>注册</a>|<a>登录</a>
+            {% endif %}
         </span>
     </div>
 </div>

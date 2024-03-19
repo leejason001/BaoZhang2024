@@ -6,7 +6,8 @@ from django.utils.safestring import mark_safe
 from django.urls import reverse
 
 from repository import models
-from utils import pagination
+from utils import pagination, myForms
+
 
 # Create your views here.
 
@@ -27,3 +28,7 @@ def index(request, *args, **kwargs):
     paginations, startItemNum, endItemNum            = pagination.returnPaginations(currentPageNum, siteArticles.count(), paginationHrefPrefix)
 
     return render(request, "mySite/mySite_index.html", {'articleTypes':models.articles.type_choices, 'siteArticles': siteArticles[startItemNum:endItemNum], 'paginations':mark_safe(paginations)})
+
+
+def doRegisterForm(request):
+    return render(request, "mySite/register.html", {'registerForm': myForms.registerForm()})
