@@ -31,4 +31,12 @@ def index(request, *args, **kwargs):
 
 
 def doRegisterForm(request):
-    return render(request, "mySite/register.html", {'registerForm': myForms.registerForm()})
+    if 'GET' == request.method:
+        return render( request, "mySite/register.html", {'registerForm': myForms.registerForm()} )
+    elif 'POST' == request.method:
+        registerForm = myForms.registerForm(request.POST)
+        if registerForm.is_valid():
+            data = registerForm.clean()
+        return render(request, "mySite/register.html", {'registerForm': registerForm})
+
+

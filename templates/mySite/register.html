@@ -7,6 +7,7 @@
 {% block body %}
         <div class="registerFormTitle">注册</div>
         <form method="post" action={% url 'register' %} class="registerForm">
+        {% csrf_token %}
         {{ registerForm.username }}
         <div>{{ registerForm.errors.username.0 }}</div>
         {{ registerForm.email }}
