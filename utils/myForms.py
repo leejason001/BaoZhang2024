@@ -19,6 +19,12 @@ class registerForm(forms.Form):
         'Password format is error!' )] , widget=widgets.PasswordInput(attrs={"placeholder":"Please confirm the passowrd"}))
     checkCode        = fields.CharField( max_length=6, min_length=6)
     headPicture_path = fields.CharField( max_length=128)
+    def clean(self):
+        if self.cleaned_data.get("password") == self.cleaned_data.get("confirmPassword"):
+            return self.cleaned_data
+        else:
+            from django.core.exceptions import ValidationError
+            raise ValidationError("两次输入的密码不一致")
 
 
 
