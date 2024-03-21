@@ -20,5 +20,7 @@ from views import realViews#不同app里的views包同名,是否会发生冲突
 urlpatterns = [
     url(r'mySite/(?P<articleType>\d+)', realViews.index, name='mySiteIndex'),
     url(r'mySite/register.html', realViews.doRegisterForm, name='register'),
+    url(r'mySite/login.html', realViews.doLogin, name='login'),
+    url(r'mySite/getCheckcode', realViews.getValidateCodeImage),
     url(r'mySite', realViews.index),
 ]

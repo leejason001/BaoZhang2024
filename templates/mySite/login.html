@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block body %}
+    {{ loginError }}
+    <form method="post" action={% url 'login' %}>
+    {% csrf_token %}
+    {{ loginForm.username }}
+    <div>{{ loginForm.username.errors.0 }}</div>
+    {{ loginForm.password }}
+    <div>{{ loginForm.password.errors.0 }}</div>
+    <div>{{ loginForm.checkCode }}<img src="mySite/getCheckcode"></div>
+    <input type="submit">
+    </form>
+{% endblock %}
