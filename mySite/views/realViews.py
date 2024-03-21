@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render, HttpResponse, redirect
 from django.utils.safestring import mark_safe
 from django.urls import reverse
+from django.db.models import Q
 import io
 
 from repository import models
@@ -47,13 +48,26 @@ def getValidateCodeImage(request):
     return HttpResponse(stream.getvalue())
 
 def doLogin(request):
-    loginForm = myForms.loginForm()
     if 'GET' == request.method:
+        loginForm = myForms.loginForm()
         return render(request, 'mySite/login.html', {'loginForm':loginForm})
     elif 'POST' == request.method:
-        if request.POST.get('checkCode').lower() == request.session['CheckCode'].lower():
-            print '===================='
-            return redirect('/mySite')
-        else:
-            return render(request, 'mySite/login.html', {'loginForm':loginForm, 'loginError':'CheckCode Error!'})
+        loginForm = myForms.loginForm(request.POST)
+        if loginForm.is_valid():
+            if request.POST.get( 'checkCode' ).lower() == request.session['CheckCode'].lower():
+                value_dict = loginForm.clean()
+                con1 = Q()
+                con1.children.append(Q(username=request.POST.get('username')) and Q(password=request.POST.get('password')))
+                con2 = Q()
+                con2.children.append(Q(email=request.POST.get('username')) and Q(password=request.POST.get('password')))
+                loginUser = models.users.objects.filter(con1 or con2).first()
+                if loginUser:
+                    request.session['id_login'] = loginUser.id
+                    request.session['username'] = loginUser.username
+                    return redirect( '/mySite' )
+                else:
+                    return render(request, 'mySite/login.html', {'loginForm': loginForm, 'loginError': 'username or password is Error'})
 
+            else:
+                return render( request, 'mySite/login.html',
+                               {'loginForm': loginForm, 'loginError': 'CheckCode Error!'} )
