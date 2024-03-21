@@ -20,5 +20,5 @@ from views import realViews#不同app里的views包同名,是否会发生冲突
 urlpatterns = [
     url(r'mySite/(?P<articleType>\d+)', realViews.index, name='mySiteIndex'),
     url(r'mySite/register.html', realViews.doRegisterForm, name='register'),
-    url(r'', realViews.index),
+    url(r'mySite', realViews.index),
 ]

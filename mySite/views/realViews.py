@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from django.utils.safestring import mark_safe
 from django.urls import reverse
 
@@ -36,7 +36,10 @@ def doRegisterForm(request):
     elif 'POST' == request.method:
         registerForm = myForms.registerForm(request.POST)
         if registerForm.is_valid():
-            data = registerForm.clean()
-        return render(request, "mySite/register.html", {'registerForm': registerForm})
+            registerData = registerForm.clean()
+            models.users.objects.create(username=registerData['username'], password=registerData['password'], email=registerData['email'], headPicture_path=registerData['headPicture_path'])
+            return redirect('/')
+        else:
+            return render(request, "mySite/register.html", {'registerForm': registerForm})
 
 
