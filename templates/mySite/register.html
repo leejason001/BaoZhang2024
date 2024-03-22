@@ -5,7 +5,7 @@
 {% block jquery %}
 {% endblock %}
 {% block body %}
-        {{ registerForm.errors }}
+        {{ registerForm.non_field_errors }}
         <div class="registerFormTitle">注册</div>
         <form method="post" action={% url 'register' %} class="registerForm">
         {% csrf_token %}
