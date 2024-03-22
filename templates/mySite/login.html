@@ -7,7 +7,14 @@
     <div>{{ loginForm.username.errors.0 }}</div>
     {{ loginForm.password }}
     <div>{{ loginForm.password.errors.0 }}</div>
-    <div>{{ loginForm.checkCode }}<img src="mySite/getCheckcode"></div>
+    <div>{{ loginForm.checkCode }}<img id="checkCodeImg" src="mySite/getCheckcode"></div>
     <input type="submit">
     </form>
+    <script>
+        $(document).ready(function () {
+            $("#checkCodeImg").click(function () {
+                $(this).attr("src", $(this).attr("src")+'?')
+            })
+        })
+    </script>
 {% endblock %}
