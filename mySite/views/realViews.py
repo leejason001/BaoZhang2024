@@ -47,6 +47,10 @@ def getValidateCodeImage(request):
     request.session["CheckCode"] = code
     return HttpResponse(stream.getvalue())
 
+def doLogout(request):
+    request.session.clear()
+    return redirect('/mySite')
+
 def doLogin(request):
     if 'GET' == request.method:
         loginForm = myForms.loginForm()

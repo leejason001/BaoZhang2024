@@ -11,7 +11,7 @@
                 <span>.</span>
                 <a href="" class="myBlog">我的博客</a>
                 <span>.</span>
-                <a>管理</a>|<a>退出</a>
+                <a>管理</a>|<a href='{% url 'logout' %}'>退出</a>
             {% else %}
                 <a href={% url 'register' %}>注册</a>|<a href={% url 'login' %}>登录</a>
             {% endif %}
