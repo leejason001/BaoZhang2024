@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from views import realViews#不同app里的views包同名,是否会发生冲突
+from views import home, realViews#不同app里的views包同名,是否会发生冲突
 
 urlpatterns = [
     url(r'mySite/(?P<articleType>\d+)', realViews.index, name='mySiteIndex'),
@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'mySite/login.html', realViews.doLogin, name='login'),
     url(r'mySite/getCheckcode', realViews.getValidateCodeImage),
     url(r'mySite/logout', realViews.doLogout, name='logout'),
+    url(r'mySite/(?P<surfix>.+)\.html', home.index),
     url(r'^', realViews.index),
 ]

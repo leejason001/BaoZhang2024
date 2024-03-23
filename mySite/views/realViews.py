@@ -25,7 +25,14 @@ def index(request, *args, **kwargs):
     except:
         currentPageNum         = 1
     paginations, startItemNum, endItemNum            = pagination.returnPaginations(currentPageNum, siteArticles.count(), paginationHrefPrefix)
-    return render(request, "mySite/mySite_index.html", {'articleTypes':models.articles.type_choices, 'siteArticles': siteArticles[startItemNum:endItemNum], 'paginations':mark_safe(paginations)})
+    id_login = request.session['id_login']
+    if id_login:
+        return render( request, "mySite/mySite_index.html", {'articleTypes': models.articles.type_choices,
+                                                             'siteArticles': siteArticles[startItemNum:endItemNum],
+                                                             'paginations': mark_safe( paginations ),
+                                                             'surfix': models.blogs.objects.filter(owner_id=id_login).first().surfix} )
+    else:
+        return render(request, "mySite/mySite_index.html", {'articleTypes':models.articles.type_choices, 'siteArticles': siteArticles[startItemNum:endItemNum], 'paginations':mark_safe(paginations), 'loginUser': loginUser})
 
 
 def doRegisterForm(request):

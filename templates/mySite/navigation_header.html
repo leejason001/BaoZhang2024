@@ -7,7 +7,7 @@
         {% endfor %}
         <span class="userArea">
             {% if request.session.username %}
-                <span>{{ request.session.username }}</span>
+                <a href={{ surfix }}>{{ request.session.username }}</a>
                 <span>.</span>
                 <a href="" class="myBlog">我的博客</a>
                 <span>.</span>
