@@ -23,5 +23,5 @@ urlpatterns = [
     url(r'mySite/login.html', realViews.doLogin, name='login'),
     url(r'mySite/getCheckcode', realViews.getValidateCodeImage),
     url(r'mySite/logout', realViews.doLogout, name='logout'),
-    url(r'mySite', realViews.index),
+    url(r'^', realViews.index),
 ]
