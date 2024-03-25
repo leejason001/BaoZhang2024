@@ -42,13 +42,15 @@
                 </div>
             </div>
             <div class="homeContentRight">
-                {% for article in articles %}
-                    <div>{{ article.title }}</div>
-                    <div>{{ article.summary }}</div>
-                    <div class="articleDetails"><span>{{ article.ctime }}</span></div>
-                {% endfor %}
+                <div>
+                    {% for article in articles %}
+                        <div>{{ article.title }}</div>
+                        <div>{{ article.summary }}</div>
+                        <div class="articleDetails"><span>{{ article.ctime }}</span></div>
+                    {% endfor %}
+                </div>
+                {{ paginations }}
             </div>
         </div>
-    {{ paginations }}
     </div>
 {% endblock %}
