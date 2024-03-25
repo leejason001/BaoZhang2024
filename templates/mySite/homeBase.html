@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="font_statics/css/home.css">
+{% endblock %}
+{% block body %}
+    <div class="{{ themeCSS_Navigator }} homeNavigator">
+        <div class="blogNavigator">{{ theBlog.title }}</div>
+        <div class="homeNavigatorDetails">
+            <a>首页</a>
+            <a>个人首页</a>
+            <a>管理</a>
+        </div>
+    </div>
+    <div>
+        <div class="homeContent">
+            <div class="homeContentLeft">
+                <div class="userNoticeArea">
+                    <div class="notice">公告</div>
+                    <div class="username">昵称：{{ username }}</div>
+                    <div>粉丝：</div>
+                    <div>关注：</div>
+                    <div>邮箱：{{ email }}</div>
+                    <div class="ZhuangBi">{{ ZhuangBi }}</div>
+                </div>
+                <div class="labelArea">
+                    <div>标签</div>
+                    {% for label in labels %}
+                        <div class="content">{{ label.labelName }}</div>
+                    {% endfor %}
+                </div>
+                <div class="classficiationArea">
+                    <div>分类</div>
+                    {% for classficiation in classficiations %}
+                        <div>{{ classficiation.className }}</div>
+                    {% endfor %}
+                </div>
+                <div class="dateArea">
+                    <div>时间</div>
+                    {% for date in dates %}
+                        <div>{{ date }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="homeContentRight">
+                {% block contentRight %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
