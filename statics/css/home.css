@@ -1,11 +1,11 @@
 .homeNavigator {
     background-color: red;
 }
-.homeNavigator .usernameNavigator,.homeNavigatorDetails{
+.homeNavigator .blogNavigator,.homeNavigatorDetails{
     width: 80%;
     margin: 0 auto;
 }
-.homeNavigator .usernameNavigator{
+.homeNavigator .blogNavigator{
     text-align: left;
 }
 .homeNavigator .homeNavigatorDetails{
@@ -20,4 +20,10 @@
 }
 .homeContent .homeContentRight{
     float: right;
+}
+.homeNavigatorDetails a {
+    margin-left: 10px;
+}
+.labelArea .content{
+    margin-left: 20px;
 }

@@ -25,14 +25,16 @@ def index(request, *args, **kwargs):
     except:
         currentPageNum         = 1
     paginations, startItemNum, endItemNum            = pagination.returnPaginations(currentPageNum, siteArticles.count(), paginationHrefPrefix)
-    id_login = request.session['id_login']
-    if id_login:
+
+    try:
+        print request.session['id_login']
+        print models.blogs.objects.filter(owner_id=request.session['id_login'])
         return render( request, "mySite/mySite_index.html", {'articleTypes': models.articles.type_choices,
                                                              'siteArticles': siteArticles[startItemNum:endItemNum],
                                                              'paginations': mark_safe( paginations ),
-                                                             'surfix': models.blogs.objects.filter(owner_id=id_login).first().surfix} )
-    else:
-        return render(request, "mySite/mySite_index.html", {'articleTypes':models.articles.type_choices, 'siteArticles': siteArticles[startItemNum:endItemNum], 'paginations':mark_safe(paginations), 'loginUser': loginUser})
+                                                             'surfix': models.blogs.objects.filter(owner_id=request.session['id_login']).first().surfix} )
+    except:
+        return render(request, "mySite/mySite_index.html", {'articleTypes':models.articles.type_choices, 'siteArticles': siteArticles[startItemNum:endItemNum], 'paginations':mark_safe(paginations)})
 
 
 def doRegisterForm(request):
@@ -56,7 +58,7 @@ def getValidateCodeImage(request):
 
 def doLogout(request):
     request.session.clear()
-    return redirect('/mySite')
+    return redirect('/')
 
 def doLogin(request):
     if 'GET' == request.method:
@@ -75,7 +77,7 @@ def doLogin(request):
                 if loginUser:
                     request.session['id_login'] = loginUser.id
                     request.session['username'] = loginUser.username
-                    return redirect( '/mySite' )
+                    return redirect( '/' )
                 else:
                     return render(request, 'mySite/login.html', {'loginForm': loginForm, 'loginError': 'username or password is Error'})
 

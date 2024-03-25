@@ -4,7 +4,7 @@
 {% endblock %}
 {% block body %}
     <div class="{{ themeCSS_Navigator }} homeNavigator">
-        <div class="usernameNavigator">{{ request.session.username }}</div>
+        <div class="blogNavigator">{{ theBlog.title }}</div>
         <div class="homeNavigatorDetails">
             <a>首页</a>
             <a>个人首页</a>
@@ -25,13 +25,13 @@
             <div class="labelArea">
                 <div>标签</div>
                 {% for label in labels %}
-                    <div>{{ label }}</div>
+                    <div class="content">{{ label.labelName }}</div>
                 {% endfor %}
             </div>
             <div class="classficiationArea">
                 <div>分类</div>
                 {% for classficiation in classficiations %}
-                    <div>{{ classficiation }}</div>
+                    <div>{{ classficiation.className }}</div>
                 {% endfor %}
             </div>
             <div class="dateArea">

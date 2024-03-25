@@ -68,7 +68,7 @@ class articles(models.Model):
 
 class labels(models.Model):
     labelName = models.CharField(max_length=16)
-    owner     = models.ForeignKey(to=blogs)
+    toBlog     = models.ForeignKey(to=blogs)
 
 class labelArticleRelationShip(models.Model):
     label    = models.ForeignKey(to=labels)
