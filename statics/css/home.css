@@ -17,9 +17,11 @@
 }
 .homeContent .homeContentLeft{
     float: left;
+    width: 20%;
 }
 .homeContent .homeContentRight{
     float: right;
+    width: 80%;
 }
 .homeNavigatorDetails a {
     margin-left: 10px;
