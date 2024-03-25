@@ -14,6 +14,8 @@
 .homeContent {
     width: 80%;
     margin: 0 auto;
+    clear: both;
+    overflow: hidden;
 }
 .homeContent .homeContentLeft{
     float: left;
