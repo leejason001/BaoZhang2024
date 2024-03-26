@@ -19,3 +19,8 @@ def index(request, *args, **kwargs):
                                                                           paginationHrefPrefix )
 
     return render(request, 'mySite/home.html', {'theBlog':theBlog, 'articles':articles[startItemNum:endItemNum], 'paginations':mark_safe(paginations),'themeCS_Navigator':'', 'labels':theBlog.labels_set.all(), 'classifications': theBlog.classifications_set.all()})
+
+def wholeArticle(request, *args, **kwargs):
+    theBlog = models.blogs.objects.filter( owner_id=request.session['id_login'] ).first()
+    article = models.articles.objects.filter(id=kwargs['artilce_id']).first()
+    return render(request, 'mySite/article.html', {'theBlog':theBlog, 'article':article, 'labels':theBlog.labels_set.all()})

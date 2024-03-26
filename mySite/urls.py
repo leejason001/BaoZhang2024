@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'mySite/login.html', realViews.doLogin, name='login'),
     url(r'mySite/getCheckcode', realViews.getValidateCodeImage),
     url(r'mySite/logout', realViews.doLogout, name='logout'),
-    url(r'(?P<surfix>.+)\.html', home.index),
+    url(r'(.+)\/(?P<artilce_id>\d+)\.html', home.wholeArticle ),
+    url(r'^(?P<surfix>.+)\.html$', home.index),
     url(r'^$', realViews.index),
 ]

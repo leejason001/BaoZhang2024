@@ -1,11 +1,8 @@
 {% extends "./homeBase.html" %}
-{% block css %}
-    <link rel="stylesheet" type="text/css" href="font_statics/css/home.css">
-{% endblock %}
 {% block contentRight %}
     <div>
         {% for article in articles %}
-            <div><a href='/{{ article.id }}'>{{ article.title }}</a></div>
+            <div><a href='/{{ theBlog.surfix }}/{{ article.id }}.html'>{{ article.title }}</a></div>
             <div>{{ article.summary }}</div>
             <div class="articleDetails"><span>{{ article.ctime }}</span></div>
         {% endfor %}
