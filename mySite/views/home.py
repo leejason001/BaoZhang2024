@@ -8,6 +8,7 @@ from utils import pagination
 
 
 def index(request, *args, **kwargs):
+    theUser = models.users.objects.filter(id=request.session['id_login']).first()
     theBlog = models.blogs.objects.filter(owner_id=request.session['id_login']).first()
     articles= models.articles.objects.filter(ownerBlog=theBlog)
     paginationHrefPrefix = '/' + theBlog.surfix + '.html'
@@ -23,7 +24,7 @@ def index(request, *args, **kwargs):
         theLabels.append(label)
 
 
-    return render(request, 'mySite/home.html', {'theBlog':theBlog, 'articles':articles[startItemNum:endItemNum], 'paginations':mark_safe(paginations),'themeCS_Navigator':'', 'labels': theLabels, 'classifications': theBlog.classifications_set.all()})
+    return render(request, 'mySite/home.html', {'user':theUser,'theBlog':theBlog, 'articles':articles[startItemNum:endItemNum], 'paginations':mark_safe(paginations),'themeCS_Navigator':'', 'labels': theLabels, 'classifications': theBlog.classifications_set.all()})
 
 def wholeArticle(request, *args, **kwargs):
     theBlog = models.blogs.objects.filter( owner_id=request.session['id_login'] ).first()
