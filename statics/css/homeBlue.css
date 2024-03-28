@@ -1,0 +1,31 @@
+.homeNavigator {
+    background-color: blue;
+}
+.homeNavigator .blogNavigator,.homeNavigatorDetails{
+    width: 80%;
+    margin: 0 auto;
+}
+.homeNavigator .blogNavigator{
+    text-align: left;
+}
+.homeNavigator .homeNavigatorDetails{
+    text-align: right;
+}
+.homeContent {
+    width: 80%;
+    margin: 0 auto;
+}
+.homeContent .homeContentLeft{
+    float: left;
+    width: 20%;
+}
+.homeContent .homeContentRight{
+    float: right;
+    width: 80%;
+}
+.homeNavigatorDetails a {
+    margin-left: 10px;
+}
+.labelArea .content{
+    margin-left: 20px;
+}

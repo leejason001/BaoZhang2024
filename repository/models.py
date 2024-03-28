@@ -20,8 +20,8 @@ class blogs(models.Model):
     surfix  = models.CharField(max_length=64, unique=True)
 
     themeChoices = [
-        (0, "skyBlue"),
-        (1, "fireRed"),
+        (0, "homeBlue"),
+        (1, "homeRed"),
     ]
     theme   = models.IntegerField(choices=themeChoices)
 
