@@ -17,7 +17,7 @@ class blogs(models.Model):
     title = models.CharField(max_length=32)
     summary = models.CharField(max_length=128)
     owner   = models.OneToOneField(to=users)
-    surfix  = models.CharField(max_length=64)
+    surfix  = models.CharField(max_length=64, unique=True)
 
     themeChoices = [
         (0, "skyBlue"),
