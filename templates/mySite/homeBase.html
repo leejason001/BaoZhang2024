@@ -30,7 +30,7 @@
                 </div>
                 <div class="classficiationArea">
                     <div>分类</div>
-                    {% for classficiation in classficiations %}
+                    {% for classficiation in theBlog.classifications_set.all %}
                         <div>{{ classficiation.className }}</div>
                     {% endfor %}
                 </div>
