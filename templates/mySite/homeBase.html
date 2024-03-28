@@ -37,7 +37,7 @@
                 <div class="dateArea">
                     <div>时间</div>
                     {% for date in dates %}
-                        <div>{{ date.theTime }}({{ date.theCount }})</div>
+                        <div><a href='/{{ theBlog.surfix }}/date/{{ date.theTime }}.html'>{{ date.theTime }}({{ date.theCount }})</a></div>
                     {% endfor %}
                 </div>
             </div>
