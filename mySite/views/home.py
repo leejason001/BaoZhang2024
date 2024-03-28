@@ -29,7 +29,12 @@ def index(request, *args, **kwargs):
 def wholeArticle(request, *args, **kwargs):
     theBlog = models.blogs.objects.filter( owner_id=request.session['id_login'] ).first()
     article = models.articles.objects.filter(id=kwargs['artilce_id']).first()
-    return render(request, 'mySite/article.html', {'theBlog':theBlog, 'article':article, 'labels':theBlog.labels_set.all()})
+
+    theLabels = []
+    for label in theBlog.labels_set.all():
+        label.count = models.labelArticleRelationShip.objects.filter(label_id=label.id).count()
+        theLabels.append(label)
+    return render(request, 'mySite/article.html', {'theBlog':theBlog, 'article':article, 'labels':theLabels})
 
 def theLabelArticles(request, *args, **kwargs):
     theBlog = models.blogs.objects.filter(owner_id=request.session['id_login']).first()
@@ -48,4 +53,4 @@ def theLabelArticles(request, *args, **kwargs):
         label.count = models.labelArticleRelationShip.objects.filter(label_id=label.id).count()
         theLabels.append(label)
 
-    return render(request, 'mySite/home.html', {'theBlog':theBlog, 'articles':articles[startItemNum:endItemNum], 'paginations':mark_safe(paginations), 'labels': theLabels, 'classifications': theBlog.classifications_set.all()})
+    return render(request, 'mySite/home.html', {'theBlog':theBlog, 'articles':articles[startItemNum:endItemNum], 'paginations':mark_safe(paginations), 'labels': theLabels})
