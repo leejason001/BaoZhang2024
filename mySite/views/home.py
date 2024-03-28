@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from django.shortcuts import HttpResponse, redirect, render
 from django.utils.safestring import mark_safe
+from django.db import connection
 
 from repository import models
 from utils import pagination
@@ -24,8 +25,9 @@ def index(request, *args, **kwargs):
         label.count = models.labelArticleRelationShip.objects.filter(label_id=label.id).count()
         theLabels.append(label)
 
+    dates = models.articles.objects.raw('select id, count(id) as theCount, strftime("%Y-%m", "ctime") as theTime from repository_articles group by strftime("%Y-%m", "ctime")')
 
-    return render(request, 'mySite/home.html', {'user':theBlogAndUser,'theBlog':theBlogAndUser, 'articles':articles[startItemNum:endItemNum], 'paginations':mark_safe(paginations),'themeCS_Navigator':'', 'labels': theLabels})
+    return render(request, 'mySite/home.html', {'user':theBlogAndUser,'theBlog':theBlogAndUser, 'articles':articles[startItemNum:endItemNum], 'paginations':mark_safe(paginations),'labels': theLabels, 'dates':dates})
 
 def wholeArticle(request, *args, **kwargs):
     theBlog = models.blogs.objects.filter( surfix=kwargs['surfix'] ).first()
