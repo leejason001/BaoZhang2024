@@ -8,10 +8,11 @@ from utils import pagination
 
 
 def index(request, *args, **kwargs):
-    theUser = models.users.objects.filter(id=request.session['id_login']).first()
-    theBlog = models.blogs.objects.filter(owner_id=request.session['id_login']).first()
-    articles= models.articles.objects.filter(ownerBlog=theBlog)
-    paginationHrefPrefix = '/' + theBlog.surfix + '.html'
+    blogAndUserTable = models.blogs.objects.all().select_related('owner')
+    
+    theBlogAndUser = blogAndUserTable.filter(surfix=kwargs['surfix']).first()
+    articles= models.articles.objects.filter(ownerBlog_id=theBlogAndUser.id)
+    paginationHrefPrefix = '/' + theBlogAndUser.surfix + '.html'
     try:
         currentPageNum         = int(request.GET.get('currentPageNum'))
     except:
@@ -19,12 +20,12 @@ def index(request, *args, **kwargs):
     paginations, startItemNum, endItemNum = pagination.returnPaginations( currentPageNum, articles.count(),
                                                                           paginationHrefPrefix )
     theLabels = []
-    for label in theBlog.labels_set.all():
+    for label in theBlogAndUser.labels_set.all():
         label.count = models.labelArticleRelationShip.objects.filter(label_id=label.id).count()
         theLabels.append(label)
 
 
-    return render(request, 'mySite/home.html', {'user':theUser,'theBlog':theBlog, 'articles':articles[startItemNum:endItemNum], 'paginations':mark_safe(paginations),'themeCS_Navigator':'', 'labels': theLabels})
+    return render(request, 'mySite/home.html', {'user':theBlogAndUser,'theBlog':theBlogAndUser, 'articles':articles[startItemNum:endItemNum], 'paginations':mark_safe(paginations),'themeCS_Navigator':'', 'labels': theLabels})
 
 def wholeArticle(request, *args, **kwargs):
     theBlog = models.blogs.objects.filter( owner_id=request.session['id_login'] ).first()

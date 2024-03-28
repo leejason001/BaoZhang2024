@@ -23,8 +23,8 @@ urlpatterns = [
     url(r'mySite/login.html', realViews.doLogin, name='login'),
     url(r'mySite/getCheckcode', realViews.getValidateCodeImage),
     url(r'mySite/logout', realViews.doLogout, name='logout'),
-    url(r'(\w+)\/label\/(?P<label_id>\d)\.html', home.theLabelArticles),
-    url(r'(\w+)\/(?P<artilce_id>\d+)\.html', home.wholeArticle ),
+    url(r'(?P<surfix>\w+)\/label\/(?P<label_id>\d)\.html', home.theLabelArticles),
+    url(r'(?P<surfix>\w+)\/(?P<artilce_id>\d+)\.html', home.wholeArticle ),
     url(r'^(?P<surfix>\w+)\.html$', home.index),
     url(r'^$', realViews.index),
 ]
