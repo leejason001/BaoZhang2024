@@ -29,3 +29,18 @@
 .labelArea .content{
     margin-left: 20px;
 }
+#favorButton {
+    margin-right: 30px;
+    background-image: url("/font_statics/images/favor.png");
+    background-repeat: no-repeat;
+    width: 60px;
+    height: 44px;
+    border-color: red;
+}
+#opposeButton {
+    background-image: url("/font_statics/images/oppose.png");
+    background-repeat: no-repeat;
+    width: 60px;
+    height: 44px;
+    border-color: red;
+}
