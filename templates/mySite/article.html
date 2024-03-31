@@ -2,4 +2,24 @@
 {% block contentRight %}
     <p>{{ article.title }}</p>
     <p>{{ article.detail.content }}</p>
+    <p><button id="favorButton"></button><button id="opposeButton"></button></p>
+    <script>
+        $(document).ready(function () {
+            csrftokenInAjax()
+            $("#favorButton").click(function () {
+                //console.log(window.location.pathname)
+                //console.log(window.location.pathname.split('/'))
+                $.ajax({
+                    url:"/userAttitleTheArticle/",
+                    type: 'post',
+                    success:function (arg) {
+                        console.log('sssssss')
+                    },
+                    error:function () {
+                        console.log('eeeeeeee')
+                    }
+                })
+            })
+        })
+    </script>
 {% endblock %}

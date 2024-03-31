@@ -27,5 +27,6 @@ urlpatterns = [
     url(r'(?P<surfix>\w+)\/label\/(?P<label_id>\d)\.html', home.theLabelArticles),
     url(r'(?P<surfix>\w+)\/(?P<artilce_id>\d+)\.html', home.wholeArticle ),
     url(r'^(?P<surfix>\w+)\.html$', home.index),
+    url(r'^userAttitleTheArticle/', home.userAttitleTheArticle),
     url(r'^$', realViews.index),
 ]

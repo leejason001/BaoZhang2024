@@ -73,3 +73,8 @@ def theDateArticles(request, *args, **kwargs):
                                                                           paginationHrefPrefix )
 
     return render(request, 'mySite/home.html', {'theBlog':theBlog, 'articles':articles[startItemNum:endItemNum], 'paginations':mark_safe(paginations)})
+
+def userAttitleTheArticle(request):
+    # print args
+    # print kwargs
+    return HttpResponse(11111111111)
