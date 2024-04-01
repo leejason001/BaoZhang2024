@@ -62,7 +62,7 @@ def theDateArticles(request, *args, **kwargs):
     theBlog = models.blogs.objects.filter(surfix=kwargs['surfix']).first()
     articles = models.articles.objects.filter( ownerBlog=theBlog ).extra(
         where=['strftime("%%Y-%%m",ctime)=%s'], params=[kwargs['theDate'], ] ).all()
-    print list(articles)
+
 
     paginationHrefPrefix = '/' + theBlog.surfix + '/date/' + kwargs['theDate'] + '.html'
     try:
@@ -75,6 +75,19 @@ def theDateArticles(request, *args, **kwargs):
     return render(request, 'mySite/home.html', {'theBlog':theBlog, 'articles':articles[startItemNum:endItemNum], 'paginations':mark_safe(paginations)})
 
 def userAttitleTheArticle(request):
-    # print args
-    # print kwargs
-    return HttpResponse(11111111111)
+    try:
+        theArticle = models.articles.objects.get(id=request.POST.get('articleId'))
+        theAttritude  = int(request.POST.get('attritude'))
+
+        if 0 == theAttritude:
+            theArticle.favorCount += 1
+        else:
+            theArticle.opposeCount += 1
+
+        theArticle.save()
+
+        models.readerAttitude.objects.create(reader=models.users.objects.filter(blogs__surfix=request.POST.get('surfix')).first(), article=theArticle, attitude=theAttritude)
+    except:
+        return HttpResponse('failed')
+    return HttpResponse('success')
+
