@@ -2,7 +2,10 @@
 {% block contentRight %}
     <p>{{ article.title }}</p>
     <p>{{ article.detail.content }}</p>
-    <p><button id="favorButton"></button><button id="opposeButton"></button></p>
+    <p>
+        <button class="{% if 1 == favor %}theUserAttitude{% endif %}" id="favorButton"></button>
+        <button class="{% if 1 == oppose %}theUserAttitude{% endif %}" id="opposeButton"></button>
+    </p>
     <script>
         $(document).ready(function () {
             csrftokenInAjax()

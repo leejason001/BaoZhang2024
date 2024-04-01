@@ -51,4 +51,9 @@
     width:88%;
     margin: 0 auto;
 }
-
+.favorRelated {
+    background-image:url("/font_statics/images/indexFavor.png");
+    background-repeat:no-repeat;
+    width: 30px;
+    padding-left: 20px;
+}

@@ -37,7 +37,16 @@ def wholeArticle(request, *args, **kwargs):
     for label in theBlog.labels_set.all():
         label.count = models.labelArticleRelationShip.objects.filter(label_id=label.id).count()
         theLabels.append(label)
-    return render(request, 'mySite/article.html', {'theBlog':theBlog, 'article':article, 'labels':theLabels})
+    try:
+        theUserAttitude = models.readerAttitude.objects.get(reader=theBlog.owner, article=article)
+    except:
+        return render( request, 'mySite/article.html', {'theBlog': theBlog, 'article': article, 'labels': theLabels} )
+    if 0 == theUserAttitude.attitude:
+        return render( request, 'mySite/article.html', {'theBlog': theBlog, 'article': article, 'labels': theLabels, 'favor':1} )
+    elif 1 == theUserAttitude.attitude:
+        return render( request, 'mySite/article.html',
+                       {'theBlog': theBlog, 'article': article, 'labels': theLabels, 'oppose': 1} )
+
 
 def theLabelArticles(request, *args, **kwargs):
     theBlog = models.blogs.objects.filter( surfix=kwargs['surfix'] ).first()
@@ -79,14 +88,13 @@ def userAttitleTheArticle(request):
         theArticle = models.articles.objects.get(id=request.POST.get('articleId'))
         theAttritude  = int(request.POST.get('attritude'))
 
+        models.readerAttitude.objects.create(reader=models.users.objects.filter(blogs__surfix=request.POST.get('surfix')).first(), article=theArticle, attitude=theAttritude)
+
         if 0 == theAttritude:
             theArticle.favorCount += 1
         else:
             theArticle.opposeCount += 1
-
         theArticle.save()
-
-        models.readerAttitude.objects.create(reader=models.users.objects.filter(blogs__surfix=request.POST.get('surfix')).first(), article=theArticle, attitude=theAttritude)
     except:
         return HttpResponse('failed')
     return HttpResponse('success')

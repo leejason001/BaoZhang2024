@@ -16,11 +16,9 @@
                         <img src="/font_statics/images/personImage.png" class="contentVerticalMiddle"><span class="contentVerticalMiddle authorName">{{ article.ownerBlog.owner.username }}</span>
                         <span class="contentVerticalMiddle ctimeLabel">发布于</span><span class="contentVerticalMiddle ctime">{{ article.ctime.year }}-{{ article.ctime.month }}-{{ article.ctime.day }}</span>
                         <span class="contentVerticalMiddle comments"></span>
-                        {% if articleCount %}
-                            <span class="contentVerticalMiddle favorRelated">
-                                {{ article.favorCount }}
-                            </span>
-                        {% endif %}
+                        <span class="contentVerticalMiddle favorRelated">
+                            {{ article.favorCount }}
+                        </span>
                     </div>
                 </div>
             {% endfor %}
