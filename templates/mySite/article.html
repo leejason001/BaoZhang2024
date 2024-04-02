@@ -7,27 +7,33 @@
         <button class="{% if 1 == oppose %}theUserAttitude{% endif %}" id="opposeButton"></button>
     </p>
     <script>
+        function doAttitude(attitude) {
+            datas = window.location.pathname.split('/')
+            var articleId_Rex = new RegExp(/\d+/g)
+            //console.log(articleId_Rex.exec(datas[2])[0])
+            $.ajax({
+                url:"/userAttitleTheArticle/",
+                type: 'post',
+                data:{"surfix":datas[1], "articleId":articleId_Rex.exec(datas[2])[0],"attitude":attitude},
+                success:function (arg) {
+                    if ("success" == arg) {
+                        console.log("点赞成功")
+                    } else if("failed" == arg) {
+                        console.log("操作数据库失败")
+                    }
+                },
+                error:function () {
+                    console.log("发送Ajax请求失败")
+                }
+            })
+        }
         $(document).ready(function () {
             csrftokenInAjax()
             $("#favorButton").click(function () {
-                datas = window.location.pathname.split('/')
-                var articleId_Rex = new RegExp(/\d+/g)
-                //console.log(articleId_Rex.exec(datas[2])[0])
-                $.ajax({
-                    url:"/userAttitleTheArticle/",
-                    type: 'post',
-                    data:{"surfix":datas[1], "articleId":articleId_Rex.exec(datas[2])[0],"attritude":0},
-                    success:function (arg) {
-                        if ("success" == arg) {
-                            console.log("点赞成功")
-                        } else if("failed" == arg) {
-                            console.log("操作数据库失败")
-                        }
-                    },
-                    error:function () {
-                        console.log("发送Ajax请求失败")
-                    }
-                })
+                doAttitude(0)
+            })
+           $("#opposeButton").click(function () {
+                doAttitude(1)
             })
         })
     </script>
