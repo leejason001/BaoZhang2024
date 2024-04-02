@@ -27,8 +27,6 @@ def index(request, *args, **kwargs):
     paginations, startItemNum, endItemNum            = pagination.returnPaginations(currentPageNum, siteArticles.count(), paginationHrefPrefix)
 
     try:
-        print request.session['id_login']
-        print models.blogs.objects.filter(owner_id=request.session['id_login'])
         return render( request, "mySite/mySite_index.html", {'articleTypes': models.articles.type_choices,
                                                              'siteArticles': siteArticles[startItemNum:endItemNum],
                                                              'paginations': mark_safe( paginations ),

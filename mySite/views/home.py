@@ -39,6 +39,7 @@ def wholeArticle(request, *args, **kwargs):
         theLabels.append(label)
     try:
         theUserAttitude = models.readerAttitude.objects.get(reader=theBlog.owner, article=article)
+
     except:
         return render( request, 'mySite/article.html', {'theBlog': theBlog, 'article': article, 'labels': theLabels} )
     if 0 == theUserAttitude.attitude:
@@ -84,17 +85,39 @@ def theDateArticles(request, *args, **kwargs):
     return render(request, 'mySite/home.html', {'theBlog':theBlog, 'articles':articles[startItemNum:endItemNum], 'paginations':mark_safe(paginations)})
 
 def userAttitleTheArticle(request):
+    ATTITUDE_FAVOR  = 0
+    ATTITUDE_OPPOSE = 1
+    ON_ATTITUDE     = 1
+    OFF_ATTITUDE    = -1
     try:
         theArticle = models.articles.objects.get(id=request.POST.get('articleId'))
+        theDirection = int(request.POST.get('direction'))
         theAttitude  = int(request.POST.get('attitude'))
 
-        models.readerAttitude.objects.create(reader=models.users.objects.filter(blogs__surfix=request.POST.get('surfix')).first(), article=theArticle, attitude=theAttitude)
+        print 111111111111111111111
+        print theDirection
+        if theDirection == ON_ATTITUDE:
+            models.readerAttitude.objects.create(reader=models.users.objects.filter(blogs__surfix=request.POST.get('surfix')).first(), article=theArticle, attitude=theAttitude)
 
-        if 0 == theAttitude:
-            theArticle.favorCount += 1
+            if ATTITUDE_FAVOR == theAttitude:
+                theArticle.favorCount += 1
+            elif ATTITUDE_OPPOSE == theAttitude:
+                theArticle.opposeCount += 1
+            else:
+                print 'theAttitude is Strange!!'
+            theArticle.save()
+        elif theDirection == OFF_ATTITUDE:
+            models.readerAttitude.objects.filter(reader=models.users.objects.filter(blogs__surfix=request.POST.get('surfix')).first(), article=theArticle).delete()
+
+            if ATTITUDE_FAVOR == theAttitude:
+                theArticle.favorCount -= 1
+            elif ATTITUDE_OPPOSE == theAttitude:
+                theArticle.opposeCount -= 1
+            else:
+                print 'theAttitude is Strange!!'
+            theArticle.save()
         else:
-            theArticle.opposeCount += 1
-        theArticle.save()
+            print "theDirection is Strange!!!!"
     except:
         return HttpResponse('failed')
     return HttpResponse('success')
