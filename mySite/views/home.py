@@ -86,11 +86,11 @@ def theDateArticles(request, *args, **kwargs):
 def userAttitleTheArticle(request):
     try:
         theArticle = models.articles.objects.get(id=request.POST.get('articleId'))
-        theAttritude  = int(request.POST.get('attritude'))
+        theAttitude  = int(request.POST.get('attitude'))
 
-        models.readerAttitude.objects.create(reader=models.users.objects.filter(blogs__surfix=request.POST.get('surfix')).first(), article=theArticle, attitude=theAttritude)
+        models.readerAttitude.objects.create(reader=models.users.objects.filter(blogs__surfix=request.POST.get('surfix')).first(), article=theArticle, attitude=theAttitude)
 
-        if 0 == theAttritude:
+        if 0 == theAttitude:
             theArticle.favorCount += 1
         else:
             theArticle.opposeCount += 1
