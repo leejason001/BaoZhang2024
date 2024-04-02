@@ -94,8 +94,7 @@ def userAttitleTheArticle(request):
         theDirection = int(request.POST.get('direction'))
         theAttitude  = int(request.POST.get('attitude'))
 
-        print 111111111111111111111
-        print theDirection
+
         if theDirection == ON_ATTITUDE:
             models.readerAttitude.objects.create(reader=models.users.objects.filter(blogs__surfix=request.POST.get('surfix')).first(), article=theArticle, attitude=theAttitude)
 
