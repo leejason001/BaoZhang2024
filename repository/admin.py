@@ -10,7 +10,11 @@ admin.site.register(models.blogs)
 admin.site.register(models.reportTroubles)
 admin.site.register(models.classifications)
 admin.site.register(models.articlesDetail)
-admin.site.register(models.articles)
+
+class articlesAdmin(admin.ModelAdmin):
+    list_display = ('title',)
+admin.site.register(models.articles, articlesAdmin)
+
 admin.site.register(models.labels)
 admin.site.register(models.labelArticleRelationShip)
 admin.site.register(models.readerAttitude)

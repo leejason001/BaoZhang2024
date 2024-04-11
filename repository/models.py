@@ -95,7 +95,13 @@ class comments(models.Model):
     article = models.ForeignKey(to=articles)
     content = models.CharField(max_length=128)
     ctime   = models.DateTimeField()
-    parentComment = models.ForeignKey(to='self', related_name='back', null=True, blank=True)
+    parentComment = models.ForeignKey(to='self', to_field='id', related_name='back', null=True, blank=True)
+
+    class Meta:
+        ordering = ("-ctime",)
+
+    def __str__(self):
+        return  self.content
 
 
 

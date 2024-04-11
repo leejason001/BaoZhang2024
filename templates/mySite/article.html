@@ -6,6 +6,10 @@
         <button class="{% if 1 == favor %}theUserAttitude{% endif %}" id="favorButton"></button>
         <button class="{% if 1 == oppose %}theUserAttitude{% endif %}" id="opposeButton"></button>
     </p>
+    <p id="commentsTrees">
+        {{ commentsTrees }}
+    </p>
+    <p></p>
     <script>
         const ATTITUDE_FAVOR  = 0
         const ATTITUDE_OPPOSE = 1

@@ -6,6 +6,9 @@ from django.db import connection
 
 from repository import models
 from utils import pagination
+from utils import commonTools
+
+MAX_SHOW_COMMENTSTREES = 5
 
 
 def index(request, *args, **kwargs):
@@ -29,6 +32,18 @@ def index(request, *args, **kwargs):
 
     return render(request, 'mySite/home.html', {'user':theBlogAndUser,'theBlog':theBlogAndUser, 'articles':articles[startItemNum:endItemNum], 'paginations':mark_safe(paginations),'labels': theLabels, 'dates':dates})
 
+def createCommentsDataTree(dictComments):
+    for comment in dictComments.values():
+        if comment.parentComment != None:
+            dictComments[comment.parentComment.id].children.append(comment)
+
+def createShowingHtmlCommentsTrees(comments):
+    htmlTrees = ''
+    for comment in comments:
+        currentDom = '<div>%s</div>'%(comment.content,)
+
+
+
 def wholeArticle(request, *args, **kwargs):
     theBlog = models.blogs.objects.filter( surfix=kwargs['surfix'] ).first()
     article = models.articles.objects.filter(id=kwargs['artilce_id']).first()
@@ -37,6 +52,26 @@ def wholeArticle(request, *args, **kwargs):
     for label in theBlog.labels_set.all():
         label.count = models.labelArticleRelationShip.objects.filter(label_id=label.id).count()
         theLabels.append(label)
+
+    counter = 0
+    showingCommentsTrees = []
+    dictComments = {}
+    for comment in models.comments.objects.all():
+        comment.children = []
+        dictComments[comment.id] = comment
+        if None == comment.parentComment:
+            if counter < MAX_SHOW_COMMENTSTREES:
+                showingCommentsTrees.append(comment)
+                counter += 1
+
+    createCommentsDataTree(dictComments)
+    #showingHtmlCommentsTrees = createShowingHtmlCommentsTrees(showingCommentsTrees)
+    for treeNode in showingCommentsTrees:
+        commonTools.printCurrentTree(treeNode, 1)
+
+
+
+
     try:
         theUserAttitude = models.readerAttitude.objects.get(reader=theBlog.owner, article=article)
 
