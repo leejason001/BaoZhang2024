@@ -40,7 +40,7 @@ def createCommentsDataTree(dictComments):
 def createShowingHtmlCommentsTrees(comments):
     htmlTrees = ''
     for comment in comments:
-        currentDom = '<div class="leveOffset">%s</div><div class="leveOffset">%s'%(comment.reader.username, comment.content,)
+        currentDom = '<div class="leveOffset">%s</div><div class="leveOffset" article="%d" me="%d">%s'%(comment.reader.username, comment.article.id, comment.id, comment.content,)
         currentDom += '<div class="replayOnComment"><button>回复</button></div>'
         currentDom += createShowingHtmlCommentsTrees(comment.children)
         currentDom += '</div>'
