@@ -6,7 +6,7 @@ from django.db import connection
 
 from repository import models
 from utils import pagination
-from utils import commonTools
+
 
 MAX_SHOW_COMMENTSTREES = 5
 
@@ -40,7 +40,11 @@ def createCommentsDataTree(dictComments):
 def createShowingHtmlCommentsTrees(comments):
     htmlTrees = ''
     for comment in comments:
-        currentDom = '<div>%s</div>'%(comment.content,)
+        currentDom = '<div class="leveOffset">%s'%(comment.content,)
+        currentDom += createShowingHtmlCommentsTrees(comment.children)
+        currentDom += '</div>'
+        htmlTrees += currentDom
+    return htmlTrees
 
 
 
@@ -65,10 +69,13 @@ def wholeArticle(request, *args, **kwargs):
                 counter += 1
 
     createCommentsDataTree(dictComments)
-    #showingHtmlCommentsTrees = createShowingHtmlCommentsTrees(showingCommentsTrees)
-    for treeNode in showingCommentsTrees:
-        commonTools.printCurrentTree(treeNode, 1)
-
+    '''
+        #用于验证生成“评论树”的数据结构的正确性
+        from utils import commonTools
+        for treeNode in showingCommentsTrees:
+            commonTools.printCurrentTree(treeNode, 1)
+    '''
+    showingHtmlCommentsTrees = createShowingHtmlCommentsTrees(showingCommentsTrees)
 
 
 
@@ -76,12 +83,14 @@ def wholeArticle(request, *args, **kwargs):
         theUserAttitude = models.readerAttitude.objects.get(reader=theBlog.owner, article=article)
 
     except:
-        return render( request, 'mySite/article.html', {'theBlog': theBlog, 'article': article, 'labels': theLabels} )
+        return render( request, 'mySite/article.html',
+                       {'theBlog': theBlog, 'article': article, 'labels': theLabels, 'commentsTrees': mark_safe(showingHtmlCommentsTrees)} )
     if 0 == theUserAttitude.attitude:
-        return render( request, 'mySite/article.html', {'theBlog': theBlog, 'article': article, 'labels': theLabels, 'favor':1} )
+        return render( request, 'mySite/article.html',
+                       {'theBlog': theBlog, 'article': article, 'labels': theLabels, 'favor':1, 'commentsTrees': mark_safe(showingHtmlCommentsTrees)} )
     elif 1 == theUserAttitude.attitude:
         return render( request, 'mySite/article.html',
-                       {'theBlog': theBlog, 'article': article, 'labels': theLabels, 'oppose': 1} )
+                       {'theBlog': theBlog, 'article': article, 'labels': theLabels, 'oppose': 1, 'commentsTrees': mark_safe(showingHtmlCommentsTrees)} )
 
 
 def theLabelArticles(request, *args, **kwargs):
