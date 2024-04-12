@@ -29,12 +29,17 @@
                  $.ajax({
                     url:'/readerCommentTheArticle/',
                     type: 'post',
-                    data: {'article_id': articleId, 'content':content},
+                    data: {'article_id': articleId, 'content':content, 'parentComment': commentContainer.attr('me')},
                     dataType: 'json',
                     success: function (arg) {
-                        console.log(arg.comment_id)
-                        var commentDom = '<div class="levelOffset" article=' + articleId + ' me=' + arg.comment_id + '>' + content + '<div class="replayOnComment rightLocation"><button class="replayButton">回复</button></div><div class="replayArea"><textarea></textarea><div class="leftLocation"><button>提交</button></div></div>'
-                        commentContainer.prepend(commentDom)
+                         var commentDom = '<div class="levelOffset">' + arg.username + '</div><div class="theComment levelOffset" article=' + articleId + ' me=' + arg.comment_id + '>' + content + '<div class="replayOnComment rightLocation"><button class="replayButton">回复</button></div><div class="replayArea"><textarea></textarea><div class="leftLocation"><button>提交</button></div></div>'
+                        if (commentContainer.attr('me')) {
+                            commentContainer = commentContainer.children('.replayArea')
+                            commentContainer.after(commentDom)
+                        } else {
+                            commentContainer.prepend(commentDom)
+                        }
+
                     }
                 })
         }
@@ -97,6 +102,10 @@
            initKindEditor();
             $("#submitCommentOfTheArticle").on('click', function() {
                 submitCommentToTheArticle($('#commentsTrees').attr('article'), theKindEditor.html(), $('#commentsTrees'))
+            })
+            $(".replayArea .replaySubmit").on('click', function() {
+                submitCommentToTheArticle($(this).parents('.theComment').attr('article'), $(this).parent().siblings('textarea').val(), $(this).parents('.theComment'))
+
             })
         })
     </script>

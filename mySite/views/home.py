@@ -42,8 +42,8 @@ def createCommentsDataTree(dictComments):
 def createShowingHtmlCommentsTrees(comments):
     htmlTrees = ''
     for comment in comments:
-        currentDom = '<div class="leveOffset">%s</div><div class="leveOffset" article="%d" me="%d">%s'%(comment.reader.username, comment.article.id, comment.id, comment.content,)
-        currentDom += '<div class="replayOnComment rightLocation"><button class="replayButton">回复</button></div><div class="replayArea"><textarea></textarea><div class="leftLocation"><button>提交</button></div></div>'
+        currentDom = '<div class="levelOffset">%s</div><div class="theComment  levelOffset" article="%d" me="%d">%s'%(comment.reader.username, comment.article.id, comment.id, comment.content,)
+        currentDom += '<div class="rightLocation"><button class="replayButton">回复</button></div><div class="replayArea"><textarea></textarea><div class="leftLocation"><button class="replaySubmit">提交</button></div></div>'
         currentDom += createShowingHtmlCommentsTrees(comment.children)
         currentDom += '</div>'
         htmlTrees += currentDom
@@ -182,5 +182,5 @@ def readerCommentTheArticle(request):
         commentObj = models.comments.objects.create( reader_id=request.session['id_login'], article_id=article_id,
                                         content=commentContent, ctime=datetime.now())
 
-    return JsonResponse({"comment_id": commentObj.id})
+    return JsonResponse({"comment_id": commentObj.id, "username": request.session["username"]})
 
