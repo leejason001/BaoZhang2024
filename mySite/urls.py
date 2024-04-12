@@ -28,5 +28,6 @@ urlpatterns = [
     url(r'(?P<surfix>\w+)\/(?P<artilce_id>\d+)\.html', home.wholeArticle ),
     url(r'^(?P<surfix>\w+)\.html$', home.index),
     url(r'^userAttitleTheArticle/', home.userAttitleTheArticle),
+    url(r'^readerCommentTheArticle/', home.readerCommentTheArticle),
     url(r'^$', realViews.index),
 ]

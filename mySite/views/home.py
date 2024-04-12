@@ -1,7 +1,9 @@
 #coding:utf8
 from __future__ import unicode_literals
 from django.shortcuts import HttpResponse, redirect, render
+from django.http import JsonResponse
 from django.utils.safestring import mark_safe
+from django.utils.timezone import datetime
 from django.db import connection
 
 from repository import models
@@ -165,4 +167,20 @@ def userAttitleTheArticle(request):
     except:
         return HttpResponse('failed')
     return HttpResponse('success')
+
+def readerCommentTheArticle(request):
+
+    try:
+        article_id = int(request.POST.get( "article_id" ))
+        commentContent = request.POST.get( "content" )
+    except:
+        print "request error"
+    if request.POST.get("parentComment"):
+        commentObj = models.comments.objects.create(reader_id=request.session['id_login'], article_id=article_id,
+                                       content=commentContent, ctime=datetime.now(),parentComment_id=int(request.POST.get("parentComment")))
+    else:
+        commentObj = models.comments.objects.create( reader_id=request.session['id_login'], article_id=article_id,
+                                        content=commentContent, ctime=datetime.now())
+
+    return JsonResponse({"comment_id": commentObj.id})
 

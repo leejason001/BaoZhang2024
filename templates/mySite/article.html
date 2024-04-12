@@ -1,4 +1,7 @@
 {% extends "./homeBase.html" %}
+{% block js %}
+    <script type="text/javascript" src="/font_statics/js/kindeditor-all.js" ></script>
+{% endblock %}
 {% block contentRight %}
     <p>{{ article.title }}</p>
     <p>{{ article.detail.content }}</p>
@@ -6,11 +9,35 @@
         <button class="{% if 1 == favor %}theUserAttitude{% endif %}" id="favorButton"></button>
         <button class="{% if 1 == oppose %}theUserAttitude{% endif %}" id="opposeButton"></button>
     </p>
-    <p id="commentsTrees">
+    <p id="commentsTrees" article="{{ article.id }}">
         {{ commentsTrees }}
     </p>
-    <p></p>
+    <p><textarea id="commentToTheArticle"></textarea><button id="submitCommentOfTheArticle">提交</button></p>
     <script>
+        var theKindEditor = null;
+        function initKindEditor() {
+            theKindEditor = KindEditor.create('#commentToTheArticle', {
+                width: '50%',
+                height: '300px',
+                resizeType: 0,
+                items: [
+                    'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', '|', 'emoticons', 'image', 'link'
+                ]
+            })
+        }
+        function submitCommentToTheArticle(articleId, content, commentContainer) {
+                 $.ajax({
+                    url:'/readerCommentTheArticle/',
+                    type: 'post',
+                    data: {'article_id': articleId, 'content':content},
+                    dataType: 'json',
+                    success: function (arg) {
+                        console.log(arg.comment_id)
+                        var commentDom = '<div class="levelOffset" article=' + articleId + ' me=' + arg.comment_id + '>' + content + '<div class="replayOnComment rightLocation"><button class="replayButton">回复</button></div><div class="replayArea"><textarea></textarea><div class="leftLocation"><button>提交</button></div></div>'
+                        commentContainer.prepend(commentDom)
+                    }
+                })
+        }
         const ATTITUDE_FAVOR  = 0
         const ATTITUDE_OPPOSE = 1
         const ON_ATTITUDE  = 1;
@@ -67,6 +94,10 @@
            $(".replayButton").on('click', function(){
                console.log($(this))
            })
+           initKindEditor();
+            $("#submitCommentOfTheArticle").on('click', function() {
+                submitCommentToTheArticle($('#commentsTrees').attr('article'), theKindEditor.html(), $('#commentsTrees'))
+            })
         })
     </script>
 {% endblock %}
