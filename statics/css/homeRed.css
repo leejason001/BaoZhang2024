@@ -49,5 +49,14 @@
     margin-left: 20px;
 }
 .replayOnComment {
+
+}
+.rightLocation {
     text-align: right;
+}
+.leftLocation {
+    text-align: left;
+}
+.replayArea {
+    margin-left: 40px;
 }
