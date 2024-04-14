@@ -32,7 +32,7 @@
                     data: {'article_id': articleId, 'content':content, 'parentComment': commentContainer.attr('me')},
                     dataType: 'json',
                     success: function (arg) {
-                         var commentDom = '<div class="levelOffset">' + arg.username + '</div><div class="theComment levelOffset" article=' + articleId + ' me=' + arg.comment_id + '>' + content + '<div class="replayOnComment rightLocation"><button class="replayButton">回复</button></div><div class="replayArea"><textarea></textarea><div class="leftLocation"><button>提交</button></div></div>'
+                         var commentDom = '<div class="levelOffset">' + arg.username + '</div><div class="theComment levelOffset" article=' + articleId + ' me=' + arg.comment_id + '>' + content + '<div class="replayOnComment rightLocation"><button class="replayButton">回复</button></div><div class="replayArea"><textarea></textarea><div class="leftLocation replaySubmit"><button>提交</button></div></div>'
                         if (commentContainer.attr('me')) {
                             commentContainer = commentContainer.children('.replayArea')
                             commentContainer.after(commentDom)
