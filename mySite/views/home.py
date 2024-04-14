@@ -63,7 +63,7 @@ def wholeArticle(request, *args, **kwargs):
     counter = 0
     showingCommentsTrees = []
     dictComments = {}
-    for comment in models.comments.objects.all():
+    for comment in models.comments.objects.filter(article=article):
         comment.children = []
         dictComments[comment.id] = comment
         if None == comment.parentComment:
@@ -71,14 +71,14 @@ def wholeArticle(request, *args, **kwargs):
                 showingCommentsTrees.append(comment)
                 counter += 1
 
-    createCommentsDataTree(dictComments)
+    createCommentsDataTree( dictComments )
     '''
         #用于验证生成“评论树”的数据结构的正确性
         from utils import commonTools
         for treeNode in showingCommentsTrees:
             commonTools.printCurrentTree(treeNode, 1)
     '''
-    showingHtmlCommentsTrees = createShowingHtmlCommentsTrees(showingCommentsTrees)
+    showingHtmlCommentsTrees = createShowingHtmlCommentsTrees( showingCommentsTrees )
 
 
 
