@@ -87,7 +87,7 @@
             $("#submitCommentOfTheArticle").on('click', function() {
                 submitCommentToTheArticle($('#commentsTrees').attr('article'), theKindEditor.html(), $('#commentsTrees'))
             })
-            $("#commentsTrees").on('click', '.replaySubmit',function() {
+            $(document).on('click', '.replaySubmit',function() {
                 submitCommentToTheArticle($(this).parents('.theComment').attr('article'), $(this).parent().siblings('textarea').val(), $(this).parents('.theComment'))
             })
         })
