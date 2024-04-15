@@ -188,7 +188,22 @@ def readerCommentTheArticle(request):
 
 @csrf_exempt
 def upLoadFiles(request):
-    print request.POST
-    print request.FILES
+    # print request.POST
+    upLoadFilesSavedDir = 'statics/images/uploadFiles'
+    for item in request.FILES:
+        obj = request.FILES.get(item)
+        fileName = obj.name
+        f = open('%s/%s'%(upLoadFilesSavedDir, fileName), 'wb')
+        for line in obj.chunks():
+            f.write(line)
+        f.close()
 
-    return HttpResponse(1111)
+    filePath = '%s/%s' % ('/font_statics/images/uploadFiles', obj.name)
+
+    dic ={
+        'error': 0,
+        'url': filePath,
+        'message': 'ssssss'
+    }
+
+    return JsonResponse(dic)
