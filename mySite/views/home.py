@@ -67,9 +67,9 @@ def wholeArticle(request, *args, **kwargs):
         comment.children = []
         dictComments[comment.id] = comment
         if None == comment.parentComment:
-            if counter < MAX_SHOW_COMMENTSTREES:
+            # if counter < MAX_SHOW_COMMENTSTREES:#为实现 查看更多准备
                 showingCommentsTrees.append(comment)
-                counter += 1
+                # counter += 1#为实现 查看更多准备
 
     createCommentsDataTree( dictComments )
     '''
