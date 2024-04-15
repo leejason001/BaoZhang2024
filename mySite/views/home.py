@@ -4,7 +4,9 @@ from django.shortcuts import HttpResponse, redirect, render
 from django.http import JsonResponse
 from django.utils.safestring import mark_safe
 from django.utils.timezone import datetime
+from django.views.decorators.csrf import csrf_exempt
 from django.db import connection
+
 
 from repository import models
 from utils import pagination
@@ -184,3 +186,9 @@ def readerCommentTheArticle(request):
 
     return JsonResponse({"comment_id": commentObj.id, "username": request.session["username"]})
 
+@csrf_exempt
+def upLoadFiles(request):
+    print request.POST
+    print request.FILES
+
+    return HttpResponse(1111)

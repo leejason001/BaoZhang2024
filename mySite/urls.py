@@ -26,8 +26,9 @@ urlpatterns = [
     url(r'^(?P<surfix>\w+)\/date\/(?P<theDate>\d{4}-\d{2})\.html', home.theDateArticles),
     url(r'(?P<surfix>\w+)\/label\/(?P<label_id>\d)\.html', home.theLabelArticles),
     url(r'(?P<surfix>\w+)\/(?P<artilce_id>\d+)\.html', home.wholeArticle ),
-    url(r'^(?P<surfix>\w+)\.html$', home.index),
     url(r'^userAttitleTheArticle/', home.userAttitleTheArticle),
     url(r'^readerCommentTheArticle/', home.readerCommentTheArticle),
+    url(r'^uploadFiles.html', home.upLoadFiles),
+    url( r'^(?P<surfix>\w+)\.html$', home.index ),
     url(r'^$', realViews.index),
 ]
