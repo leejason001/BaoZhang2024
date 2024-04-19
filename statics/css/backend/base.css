@@ -48,10 +48,15 @@ body {
     width: 80px;
     font-size: 10px;
 }
-.profileMenu .borderContainer{
-    border: 1px solid red;
-    width: 50px;
-}
 .profileMenu a {
     display: block;
 }
+.item-set .borderContainer{
+    border: 1px solid red;
+    width: 50px;
+    display: none
+}
+.item-set:hover .borderContainer {
+    display: block;
+}
+
