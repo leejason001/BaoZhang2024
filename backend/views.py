@@ -5,5 +5,5 @@ from django.shortcuts import render, HttpResponse
 
 # Create your views here.
 
-def backendIndex(request):
-    return HttpResponse("bbbbbbbbbbbbb")
+def articleManager(request):
+    return render(request, 'backend/backendBase.html', {})

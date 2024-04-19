@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+}
+.pgHheader {
+    height: 48px;
+    line-height: 48px;
+    min-width: 1100px;
+    background-color: blueviolet;
+}
+.pgHheader .part {
+    display: inline-block;
+}
+.pgHheader-left {
+    height: 48px;
+    width: 20%;
+    vertical-align: top;
+    text-align: center;
+    background-color: blue;
+}
+.pgHheader-left .logo {
+    color: white;
+    font-size: 30px;
+}
+.pgHheader-middle {
+    height: 48px;
+    vertical-align: top;
+}
+.pgHheader-middle span {
+    font-size: 20px;
+}
+.pgHheader-right {
+    float: right;
+    width: 380px;
+}
+.pgHheader-right .item {
+    float: left;
+    margin-right: 36px;
+}
+.item-set {
+    float: right;
+}
+.item-set .profilePhoto {
+    float: right;
+    margin: 2px 0;
+}
+.item-set .profileMenu {
+    clear: both;
+    width: 80px;
+    font-size: 10px;
+}
+.profileMenu .borderContainer{
+    border: 1px solid red;
+    width: 50px;
+}
+.profileMenu a {
+    display: block;
+}
