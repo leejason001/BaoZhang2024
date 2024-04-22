@@ -13,7 +13,7 @@ body {
 .pgHheader-left {
     height: 48px;
     width: 20%;
-    vertical-align: top;
+    float: left;
     text-align: center;
     background-color: blue;
 }
@@ -23,40 +23,49 @@ body {
 }
 .pgHheader-middle {
     height: 48px;
-    vertical-align: top;
+    float: left;
 }
 .pgHheader-middle span {
     font-size: 20px;
 }
 .pgHheader-right {
     float: right;
-    width: 380px;
 }
 .pgHheader-right .item {
-    float: left;
+    /*float: left;*/
     margin-right: 36px;
 }
-.item-set {
-    float: right;
+.avatar {
+    float: right;/*保证包含图片和弹出菜单的这一坨虽然很高,但不会影响同行其他Dom的上下位置*/
+    display: inline-block;
+    position: relative;
 }
-.item-set .profilePhoto {
-    float: right;
+.avatar .sets{
+    position: absolute;
+    top: 48px;
+    left: -103px;
+    display: none;
+    width: 150px;
+    border: 1px solid #DDDDDD;
+}
+.avatar:hover .sets {
+    display: block;
+}
+.avatar .sets a {
+    display: block;
+}
+.avatar .profilePhoto {
+    /*float: right;*/
     margin: 2px 0;
+    border-radius: 50%;
 }
-.item-set .profileMenu {
-    clear: both;
-    width: 80px;
-    font-size: 10px;
+.avatar .profileMenu {
+    /*clear: both;*/
+    /*width: 80px;*/
+    /*font-size: 10px;*/
 }
 .profileMenu a {
     display: block;
 }
-.item-set .borderContainer{
-    border: 1px solid red;
-    width: 50px;
-    display: none
-}
-.item-set:hover .borderContainer {
-    display: block;
-}
+
 
