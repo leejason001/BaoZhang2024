@@ -28,3 +28,18 @@
         </div>
     </div>
 {% endblock %}
+
+{% block body %}
+    <ul class="bodyPart bodyLeft">
+        {% for tab in tabs %}
+            <li><a href={{ tab.path }}>{{ tab.caption }}</a></li>
+        {% endfor %}
+    </ul>
+    <div class="bodyPart bodyRight">
+        <div class="bodyRightContent">
+            {% block  bodyRightContent%}
+
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}
