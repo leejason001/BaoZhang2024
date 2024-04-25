@@ -77,7 +77,20 @@ ul.bodyLeft {
     padding-left: 0;
 }
 .bodyLeft li {
+    padding-left: 40px;
+    margin-bottom: 4px;
+    padding-bottom: 6px;
     border-bottom-style: dotted;
+    border-right: 4px solid transparent;
+}
+.bodyLeft li:hover {
+    border-right: 4px solid red;
+}
+.bodyLeft li a {
+    font-size: 20px;
+    padding-left: 24px;
+    background-image: url("/font_statics/images/menuItemBackground.png");
+    background-repeat: no-repeat;
 }
 .bodyRight {
     left: 16%;
