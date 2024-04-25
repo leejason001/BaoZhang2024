@@ -96,11 +96,17 @@ ul.bodyLeft {
     left: 16%;
     right: 0;
     overflow: auto;
-    background-color: blue;
 }
-.bodyRightContent {
-
+.crumbs {
+    height: 49px;
+    background-image: url("/font_statics/images/leftRightSpace_head.png");
+    background-repeat: no-repeat;
 }
-
+.bodyRightContent .contentContainer {
+    background-image: url(/font_statics/images/leftRightSpace_body.png);
+    background-position: left center;
+    background-repeat: repeat-y;
+    height: 1000px;
+}
 
 
