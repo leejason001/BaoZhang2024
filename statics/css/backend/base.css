@@ -97,16 +97,29 @@ ul.bodyLeft {
     right: 0;
     overflow: auto;
 }
-.crumbs {
+.crumbsContainer {
     height: 49px;
     background-image: url("/font_statics/images/leftRightSpace_head.png");
     background-repeat: no-repeat;
+}
+.crumbs {
+    margin-left: 12px;
+    border-bottom: 1px dotted;
 }
 .bodyRightContent .contentContainer {
     background-image: url(/font_statics/images/leftRightSpace_body.png);
     background-position: left center;
     background-repeat: repeat-y;
-    height: 1000px;
+}
+.partsSpace {
+    padding-left: 40px;
+}
+.searchConditions {
+    background-image: url("/font_statics/images/magnifier.png");
+    background-repeat: no-repeat;
+    background-position: 20px center;
+    margin-left: 12px;
+    border-bottom: 1px dotted;
 }
 
 

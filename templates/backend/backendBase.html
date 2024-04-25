@@ -37,11 +37,13 @@
     </ul>
     <div class="bodyPart bodyRight">
         <div class="bodyRightContent">
-            <div class="crumbs">
-                <span>{{ theTabCaption }}</span>
-                {% for crumb in crumbs %}
-                    <span>/{{ crumb.caption }}</span>
-                {% endfor %}
+            <div class="crumbsContainer">
+                <div class="crumbs">
+                    <span>{{ theTabCaption }}</span>
+                    {% for crumb in crumbs %}
+                        <span>/{{ crumb }}</span>
+                    {% endfor %}
+                </div>
             </div>
             <div class="contentContainer">
                 {% block  bodyRightContent%}
