@@ -67,6 +67,18 @@ body {
     left: 0;
     width: 16%;
 }
+li {
+    list-style-type: none;
+}
+li a {
+    text-decoration: none;
+}
+ul.bodyLeft {
+    padding-left: 0;
+}
+.bodyLeft li {
+    border-bottom-style: dotted;
+}
 .bodyRight {
     left: 16%;
     right: 0;
@@ -76,5 +88,6 @@ body {
 .bodyRightContent {
 
 }
+
 
 
