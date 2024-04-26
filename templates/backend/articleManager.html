@@ -2,4 +2,38 @@
 
 {% block bodyRightContent %}
     <div class="partsSpace searchConditions">搜索条件</div>
+    <div class="partsSpace">
+        <div class="classifications">
+            <span class="all">全部</span>
+            {% for classification in classifications %}
+            <span>{{ classification.className }}</span>
+            {% endfor %}
+            </div>
+        <div class="labels">
+            <span class="all">全部</span>
+            {% for label in labels %}
+            <span>{{ label.labelName }}</span>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="partsSpace searchStatistics">
+        <span>搜索文章（{{statistics}}）</span>
+        <a href="" class="createArticles"></a>
+    </div>
+    <div>
+        <table class="partsSpace">
+            <thead>
+                <th>文章标题</th>
+                <th>操作</th>
+            </thead>
+            <tbody>
+            {% for article in articles %}
+                <tr>
+                    <td>{{ article.title }}</td>
+                    <td><a href="">删除</a>|<a href="">编辑</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

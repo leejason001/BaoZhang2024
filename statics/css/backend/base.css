@@ -94,7 +94,7 @@ ul.bodyLeft {
 }
 .bodyRight {
     background-image: url("/font_statics/images/spaceFullScreen.png");
-    background-position: left center;
+    background-position: left top;
     background-repeat: no-repeat;
     left: 16%;
     right: 0;
@@ -117,6 +117,10 @@ ul.bodyLeft {
 .partsSpace {
     padding-left: 40px;
 }
+.classifications .all, .labels .all {
+    margin-left: 20px;
+    margin-right: 60px;
+}
 .searchConditions {
     background-image: url("/font_statics/images/magnifier.png");
     background-repeat: no-repeat;
@@ -124,5 +128,15 @@ ul.bodyLeft {
     margin-left: 12px;
     border-bottom: 1px dotted;
 }
+.createArticles {
+    float: right;
+    height: 42px;
+    width: 140px;
+    margin-right: 40px;
+    background-image: url("/font_statics/images/createArticles.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
 
 
