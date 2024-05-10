@@ -25,6 +25,9 @@ class blogs(models.Model):
     ]
     theme   = models.IntegerField(choices=themeChoices)
 
+    def __str__(self):
+        return self.title
+
 class reportTroubles(models.Model):
     uid = models.UUIDField(max_length=16)
     title = models.CharField(max_length=32)
