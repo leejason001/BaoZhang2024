@@ -47,6 +47,8 @@ class reportTroubles(models.Model):
 class classifications(models.Model):
     className = models.CharField(max_length=16)
     owner     = models.ForeignKey(to=blogs)
+    def __str__(self):
+        return self.className
 
 class articlesDetail(models.Model):
     content = models.CharField(max_length=256)
@@ -68,10 +70,14 @@ class articles(models.Model):
     classification = models.ForeignKey(to=classifications)
     favorCount     = models.IntegerField(default=0)
     opposeCount    = models.IntegerField(default=0)
+    def __str__(self):
+        return self.title
 
 class labels(models.Model):
     labelName = models.CharField(max_length=16)
     toBlog     = models.ForeignKey(to=blogs)
+    def __str__(self):
+        return self.labelName
 
 class labelArticleRelationShip(models.Model):
     label    = models.ForeignKey(to=labels)
