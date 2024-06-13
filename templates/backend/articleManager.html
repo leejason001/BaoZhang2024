@@ -6,13 +6,13 @@
         <div class="classifications">
             <span class="all">全部</span>
             {% for classification in classifications %}
-            <span>{{ classification.className }}</span>
+            <a href="/backend/{{ classification.id }}/{{ flat.two }}" dataId={{ classification.id }}>{{ classification.className }}</a>
             {% endfor %}
             </div>
         <div class="labels">
             <span class="all">全部</span>
             {% for label in labels %}
-            <span>{{ label.labelName }}</span>
+            <a href="/backend/{{ flat.one }}/{{ label.id }}" dataId={{ label.id }}>{{ label.labelName }}</a>
             {% endfor %}
         </div>
     </div>

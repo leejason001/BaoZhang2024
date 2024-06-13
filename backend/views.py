@@ -6,12 +6,23 @@ from django.shortcuts import render, HttpResponse
 from repository import models
 # Create your views here.
 
-def articleManager(request, tabs):
+def articleManager(request, tabs, one, two):
     try:
         theBlog = models.blogs.objects.filter(owner_id=request.session['id_login'])
-        classifications = models.classifications.objects.filter(owner=theBlog)
-        labels          = models.labels.objects.filter(toBlog=theBlog)
-        articles        = models.articles.objects.filter(ownerBlog=theBlog)
-        return render(request, 'backend/articleManager.html', {'tabs': tabs, 'theTabCaption': u'文章管理', 'crumbs': [u'文章列表'], 'classifications': classifications, 'labels':labels, 'articles': articles})
     except:
-        return HttpResponse(u'请先登录')
+        return HttpResponse( u'请先登录' )
+
+    classifications = models.classifications.objects.filter(owner=theBlog)
+    labels          = models.labels.objects.filter(toBlog=theBlog)
+    if one!='' and two!='':
+        articles        = models.articles.objects.filter(ownerBlog=theBlog, classification_id=int(one), labelarticlerelationship__label__id=int(two))
+    elif one != '':
+        articles        = models.articles.objects.filter(ownerBlog=theBlog, classification_id=int(one))
+    elif two != '':
+        articles        = models.articles.objects.filter(ownerBlog=theBlog, labelarticlerelationship__label__id=int(two))
+    else:
+        articles = models.articles.objects.filter( ownerBlog=theBlog )
+
+    flat = {"one":one, "two": two}
+
+    return render(request, 'backend/articleManager.html', {'tabs': tabs, 'theTabCaption': u'文章管理', 'crumbs': [u'文章列表'], 'classifications': classifications, 'labels':labels, 'articles': articles, 'flat': flat})
