@@ -1,0 +1,16 @@
+{% extends 'backend/backendBase.html' %}
+{% block js %}
+    <script type="text/javascript" src="/font_statics/js/kindeditor-all.js" ></script>
+    <script type="text/javascript" src="/font_statics/js/kindeditor_createArticle.js"></script>
+{% endblock %}
+
+{% block  bodyRightContent%}
+    <form style="margin-left:20px">
+        <div>{{ articleForm.title }}</div>
+        <div>{{ articleForm.summary }}</div>
+        <textarea id="articleContent"></textarea>
+        <div>{{ articleForm.classifications }}</div>
+        <div>{{ articleForm.labels }}</div>
+        <input type="submit" >
+    </form>
+{% endblock %}

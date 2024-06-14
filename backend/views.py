@@ -4,13 +4,22 @@ from __future__ import unicode_literals
 from django.shortcuts import render, HttpResponse
 
 from repository import models
+from utils import myForms
 # Create your views here.
+
+def createArticle(request, tabs):
+    return render(request, 'backend/createArticle.html', {'tabs':tabs, 'theTabCaption': u'文章管理', 'crumbs': [u'创建文章'], 'articleForm':myForms.articleForm(request)})
+
+
 
 def articleManager(request, tabs, one, two):
     try:
         theBlog = models.blogs.objects.filter(owner_id=request.session['id_login'])
     except:
         return HttpResponse( u'请先登录' )
+
+
+    request.session['blog_id'] = theBlog.first().id
 
     classifications = models.classifications.objects.filter(owner=theBlog)
     labels          = models.labels.objects.filter(toBlog=theBlog)

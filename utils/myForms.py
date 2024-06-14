@@ -2,6 +2,10 @@
 from django import forms
 from django.forms import fields, widgets
 from django.core.validators import RegexValidator
+from django.forms import widgets as django_widgets
+from django.forms import fields as django_fields
+
+from repository import models
 
 class registerForm(forms.Form):
     username = fields.CharField(max_length=32, widget=widgets.TextInput(attrs={'placeholder':'Input username'}))
@@ -33,6 +37,27 @@ class loginForm(forms.Form):
     username = fields.CharField(max_length=32, widget=widgets.TextInput(attrs={'placeholder':'Input username'}))
     password = fields.CharField(max_length=8, min_length=8, widget=widgets.PasswordInput())
     checkCode= fields.CharField(max_length=4, min_length=4)
+
+class articleForm(forms.Form):
+    title   = fields.CharField(max_length=32, required=True, error_messages={'required':'required,null is error','max_length':'max_length is not enough'},\
+                             validators=[RegexValidator(r'\D','Number is not allowed!')])
+    summary = fields.CharField(max_length=32, required=True, error_messages={'required':'required,null is error'})
+    content = fields.CharField(widget=widgets.Textarea(attrs={'id':'articleContent','class':'kind-content'}))
+
+    classifications = django_fields.IntegerField(widget=django_widgets.RadioSelect(choices=models.articles.type_choices))
+    labels          = django_fields.ChoiceField(choices=[], widget=django_widgets.RadioSelect)
+
+    def __init__(self, request, *args, **kwargs):
+        super(articleForm, self).__init__(*args, **kwargs)
+        blog_id = request.session['blog_id']
+        self.fields['classifications'].choices = models.classifications.objects.filter(owner__id=blog_id).values_list('id', 'className')
+        self.fields['labels'].choices          = models.labels.objects.filter(toBlog__id=blog_id).values_list('id', 'labelName')[0:]
+        print self.fields['labels'].choices
+
+
+
+
+
 
 
 
