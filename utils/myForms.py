@@ -50,10 +50,12 @@ class articleForm(forms.Form):
 
     def __init__(self, request, *args, **kwargs):
         super(articleForm, self).__init__(*args, **kwargs)
-        blog_id = request.session['blog_id']
-        self.fields['classifications'].choices = models.classifications.objects.filter(owner__id=blog_id).values_list('id', 'className')
-        self.fields['labels'].choices          = models.labels.objects.filter(toBlog__id=blog_id).values_list('id', 'labelName')[0:]
-        print self.fields['labels'].choices
+        try:
+            blog_id = request.session['blog_id']
+            self.fields['classifications'].choices = models.classifications.objects.filter(owner__id=blog_id).values_list('id', 'className')
+            self.fields['labels'].choices          = models.labels.objects.filter(toBlog__id=blog_id).values_list('id', 'labelName')[0:]
+        except:
+            print('')
 
 
 

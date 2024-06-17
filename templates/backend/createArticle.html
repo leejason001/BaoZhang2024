@@ -5,13 +5,14 @@
 {% endblock %}
 
 {% block  bodyRightContent%}
-    <form style="margin-left:20px">
-        <div>{{ articleForm.title }}</div>
-        <div>{{ articleForm.summary }}</div>
+    <form style="margin-left:20px" method="post" action="createArticle.html">
+        {% csrf_token %}
+        <div>{{ articleForm.title }}</div><span>{{ value.errors.title.0 }}</span>
+        <div>{{ articleForm.summary }}</div><span>{{ value.errors.summary.0 }}</span>
         <textarea id="articleContent"></textarea>
         <div>{{ articleForm.articleType }}</div>
         <div>{{ articleForm.classifications }}</div>
         <div>{{ articleForm.labels }}</div>
-        <input type="submit" >
+        <input type="submit"  value="submit">
     </form>
 {% endblock %}

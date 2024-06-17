@@ -1,14 +1,23 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render, HttpResponse
-
+from django.shortcuts import render, HttpResponse, redirect
 from repository import models
 from utils import myForms
 # Create your views here.
 
 def createArticle(request, tabs):
-    return render(request, 'backend/createArticle.html', {'tabs':tabs, 'theTabCaption': u'文章管理', 'crumbs': [u'创建文章'], 'articleForm':myForms.articleForm(request)})
+    if 'GET' == request.method:
+        return render(request, 'backend/createArticle.html', {'tabs':tabs, 'theTabCaption': u'文章管理', 'crumbs': [u'创建文章'], 'articleForm':myForms.articleForm(request)})
+    elif 'POST' == request.method:
+        value = myForms.articleForm(request, request.POST)
+        if value.is_valid():
+            return redirect('/backend/')
+        else:
+            print(666666666666666666666)
+            print(value.errors)
+            return render(request, 'backend/createArticle.html', {'tabs':tabs, 'theTabCaption': u'文章管理', 'crumbs': [u'创建文章'],
+                                                                  'articleForm':myForms.articleForm(request), 'value':value})
 
 
 
