@@ -42,7 +42,7 @@ class articleForm(forms.Form):
     title   = fields.CharField(max_length=32, required=True, error_messages={'required':'required,null is error','max_length':'max_length is not enough'},\
                              validators=[RegexValidator(r'\D','Number is not allowed!')])
     summary = fields.CharField(max_length=32, required=True, error_messages={'required':'required,null is error'})
-    content = fields.CharField(widget=widgets.Textarea(attrs={'id':'articleContent','class':'kind-content'}), error_messages={'required':'required,null is error content'})
+    content = fields.CharField(widget=widgets.Textarea(attrs={'id':'articleContent','class':'kind-content'}), required=False, error_messages={'required':'required,null is error content'})
 
     articleType     = django_fields.IntegerField(widget=django_widgets.RadioSelect(choices=models.articles.type_choices))
     classifications = django_fields.ChoiceField(choices=[], widget=django_widgets.RadioSelect)
