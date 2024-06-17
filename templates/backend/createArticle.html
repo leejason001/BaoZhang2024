@@ -9,7 +9,7 @@
         {% csrf_token %}
         <div>{{ articleForm.title }}</div><span>{{ value.errors.title.0 }}</span>
         <div>{{ articleForm.summary }}</div><span>{{ value.errors.summary.0 }}</span>
-        <textarea id="articleContent"></textarea>
+        <textarea id="articleContent"></textarea>{{ value.errors.articleContent.0 }}</span>
         <div>{{ articleForm.articleType }}</div>
         <div>{{ articleForm.classifications }}</div>
         <div>{{ articleForm.labels }}</div>
