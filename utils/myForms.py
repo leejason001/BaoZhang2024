@@ -44,7 +44,8 @@ class articleForm(forms.Form):
     summary = fields.CharField(max_length=32, required=True, error_messages={'required':'required,null is error'})
     content = fields.CharField(widget=widgets.Textarea(attrs={'id':'articleContent','class':'kind-content'}))
 
-    classifications = django_fields.IntegerField(widget=django_widgets.RadioSelect(choices=models.articles.type_choices))
+    articleType     = django_fields.IntegerField(widget=django_widgets.RadioSelect(choices=models.articles.type_choices))
+    classifications = django_fields.ChoiceField(choices=[], widget=django_widgets.RadioSelect)
     labels          = django_fields.ChoiceField(choices=[], widget=django_widgets.RadioSelect)
 
     def __init__(self, request, *args, **kwargs):
