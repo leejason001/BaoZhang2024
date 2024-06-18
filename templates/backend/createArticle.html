@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block  bodyRightContent%}
-    <form style="margin-left:20px" method="post" action="createArticle.html" class="createArticleForm" enctype=”multipart/form-data”>
+    <form style="margin-left:20px" method="post" action="createArticle.html">
         {% csrf_token %}
         <div>{{ articleForm.title }}</div><span>{{ value.errors.title.0 }}</span>
         <div>{{ articleForm.summary }}</div><span>{{ value.errors.summary.0 }}</span>
