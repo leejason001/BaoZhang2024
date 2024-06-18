@@ -2,6 +2,8 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, HttpResponse, redirect
+from datetime import datetime
+
 from repository import models
 from utils import myForms
 # Create your views here.
@@ -11,11 +13,23 @@ def createArticle(request, tabs):
         return render(request, 'backend/createArticle.html', {'tabs':tabs, 'theTabCaption': u'文章管理', 'crumbs': [u'创建文章'], 'articleForm':myForms.articleForm(request)})
     elif 'POST' == request.method:
         value = myForms.articleForm(request, request.POST)
+        # print(value.errors)
         if value.is_valid():
+            articleDetailObj = models.articlesDetail.objects.create(
+                content = request.POST.get('content')
+            )
+            classificationObj = models.classifications.objects.get(id=request.POST.get('classifications'))
+            models.articles.objects.create(
+                title = request.POST.get('title'),
+                summary = request.POST.get('summary'),
+                ownerBlog_id = request.session['blog_id'],
+                ctime = datetime.now(),
+                detail = articleDetailObj,
+                articleType = request.POST.get('articleType'),
+                classification = classificationObj
+            )
             return redirect('/backend/')
         else:
-            print(666666666666666666666)
-            print(value.errors)
             return render(request, 'backend/createArticle.html', {'tabs':tabs, 'theTabCaption': u'文章管理', 'crumbs': [u'创建文章'],
                                                                   'articleForm':myForms.articleForm(request), 'value':value})
 

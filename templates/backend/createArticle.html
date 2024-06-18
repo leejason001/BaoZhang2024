@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block  bodyRightContent%}
-    <form style="margin-left:20px" method="post" action="createArticle.html">
+    <form style="margin-left:20px" method="post" action="createArticle.html" class="createArticleForm" enctype=”multipart/form-data”>
         {% csrf_token %}
         <div>{{ articleForm.title }}</div><span>{{ value.errors.title.0 }}</span>
         <div>{{ articleForm.summary }}</div><span>{{ value.errors.summary.0 }}</span>
-        <textarea id="articleContent"></textarea><span>{{ value.errors.content.0 }}</span>
+        <textarea id="articleContent" name="content"></textarea><span>{{ value.errors.content.0 }}</span>
         <div>{{ articleForm.articleType }}</div>
         <div>{{ articleForm.classifications }}</div>
         <div>{{ articleForm.labels }}</div>

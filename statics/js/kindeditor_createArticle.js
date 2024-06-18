@@ -9,9 +9,13 @@
 
                 items: [
                     'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', '|', 'emoticons', 'image', 'link'
-                ]
+                ],afterBlur: function () {
+                    $('#articleContent').val(theKindEditor.html())
+                }
             })
         }
         $(document).ready(function () {
             initKindEditor();
+
+
         })
