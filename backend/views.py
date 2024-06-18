@@ -19,7 +19,7 @@ def createArticle(request, tabs):
                 content = request.POST.get('content')
             )
             classificationObj = models.classifications.objects.get(id=request.POST.get('classifications'))
-            models.articles.objects.create(
+            articleObj = models.articles.objects.create(
                 title = request.POST.get('title'),
                 summary = request.POST.get('summary'),
                 ownerBlog_id = request.session['blog_id'],
@@ -27,6 +27,10 @@ def createArticle(request, tabs):
                 detail = articleDetailObj,
                 articleType = request.POST.get('articleType'),
                 classification = classificationObj
+            )
+            models.labelArticleRelationShip.objects.create(
+                label_id = request.POST.get("labels"),
+                article = articleObj
             )
             return redirect('/backend/')
         else:
