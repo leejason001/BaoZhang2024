@@ -18,10 +18,10 @@ def editArticle(request, tabs, article_id):
                 "content"       :theArticle.detail.content,
                 "articleType"   :theArticle.articleType,
                 "classifications":theArticle.classification_id,
-                "labels"        :theArticle.labelarticlerelationship_set.values('label')
+                "labels"        :theArticle.labelarticlerelationship_set.values_list('label')[0]
             }
         )
-        print(theArticle.classification)
+        print(theArticle.labelarticlerelationship_set.values_list('label')[0])
         return render(request, 'backend/articleBase.html', {'tabs':tabs, 'theTabCaption': u'文章管理', 'crumbs': [u'创建文章'], 'articleForm':articleFormObj})
 
 def createArticle(request, tabs):
