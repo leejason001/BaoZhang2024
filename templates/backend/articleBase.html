@@ -7,12 +7,12 @@
 {% block  bodyRightContent%}
     <form style="margin-left:20px" method="post" action={{ form_action }}>
         {% csrf_token %}
-        <div title={{ article.title }}>{{ articleForm.title }}</div><span>{{ value.errors.title.0 }}</span>
-        <div summary={{ article.summary }}>{{ articleForm.summary }}</div><span>{{ value.errors.summary.0 }}</span>
-        <textarea content={{ article.content }} id="articleContent" name="content"></textarea><span>{{ value.errors.content.0 }}</span>
-        <div articleType={{ article.articleType }}>{{ articleForm.articleType }}</div>
-        <div classifications={{ article.classifications }}>{{ articleForm.classifications }}</div>
-        <div labels={{ article.labels }}>{{ articleForm.labels }}</div>
+        <div>{{ articleForm.title }}</div><span>{{ value.errors.title.0 }}</span>
+        <div>{{ articleForm.summary }}</div><span>{{ value.errors.summary.0 }}</span>
+        <textarea id="articleContent" name="content"></textarea><span>{{ value.errors.content.0 }}</span>
+        <div>{{ articleForm.articleType }}</div>
+        <div>{{ articleForm.classifications }}</div>
+        <div>{{ articleForm.labels }}</div>
         <input type="submit"  value="submit">
     </form>
 {% endblock %}
