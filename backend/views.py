@@ -9,8 +9,8 @@ from utils import myForms
 # Create your views here.
 
 def editArticle(request, tabs, article_id):
+    theArticle = models.articles.objects.get( id=article_id )
     if 'GET' == request.method:
-        theArticle = models.articles.objects.get(id=article_id)
         articleFormObj = myForms.articleForm(request=request,
             data={
                 "title"         :theArticle.title,
@@ -21,8 +21,24 @@ def editArticle(request, tabs, article_id):
                 "labels"        :theArticle.labelarticlerelationship_set.values_list('label')[0]
             }
         )
-        print(theArticle.labelarticlerelationship_set.values_list('label')[0])
         return render(request, 'backend/articleBase.html', {'tabs':tabs, 'theTabCaption': u'文章管理', 'crumbs': [u'创建文章'], 'articleForm':articleFormObj})
+    elif 'POST' == request.method:
+        value = myForms.articleForm( request, request.POST )
+        if value.is_valid():
+            content = value.cleaned_data.pop('content')
+            labels  = value.cleaned_data.pop('labels')
+            value.cleaned_data["ownerBlog"] = theArticle.ownerBlog
+            value.cleaned_data["classification"] = value.cleaned_data.pop('classifications')
+            models.articlesDetail.objects.filter(id=theArticle.detail.id).update(content=content)
+            models.labelArticleRelationShip.objects.filter(article=theArticle).delete()
+            label_list = []
+            for label in labels:
+                label_list.append(models.labelArticleRelationShip(article=theArticle, label_id=int(label)))
+            models.labelArticleRelationShip.objects.bulk_create(label_list)
+            models.articles.objects.filter(id=theArticle.id).update(**value.cleaned_data)
+
+        return redirect( '/backend' )
+
 
 def createArticle(request, tabs):
     if 'GET' == request.method:
