@@ -10,7 +10,7 @@ from utils import myForms
 
 def editArticle(request, tabs, article_id):
     if 'GET' == request.method:
-        theArticle = models.articles.objects.filter(id=article_id).first()
+        theArticle = models.articles.objects.get(id=article_id)
         articleFormObj = myForms.articleForm(request=request,
             data={
                 "title"         :theArticle.title,
@@ -21,6 +21,7 @@ def editArticle(request, tabs, article_id):
                 "labels"        :theArticle.labelarticlerelationship_set.values('label')
             }
         )
+        print(theArticle.detail.content)
         return render(request, 'backend/articleBase.html', {'tabs':tabs, 'theTabCaption': u'文章管理', 'crumbs': [u'创建文章'], 'articleForm':articleFormObj})
 
 def createArticle(request, tabs):
