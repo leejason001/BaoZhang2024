@@ -28,9 +28,9 @@
             </thead>
             <tbody>
             {% for article in articles %}
-                <tr>
+                <tr article_id={{ article.id }}>
                     <td>{{ article.title }}</td>
-                    <td><a href="">删除</a>|<a href="">编辑</a></td>
+                    <td><a href="">删除</a>|<a href="editArticle/{{ article.id }}.html">编辑</a></td>
                 </tr>
             {% endfor %}
             </tbody>

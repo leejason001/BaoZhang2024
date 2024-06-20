@@ -8,6 +8,21 @@ from repository import models
 from utils import myForms
 # Create your views here.
 
+def editArticle(request, tabs, article_id):
+    if 'GET' == request.method:
+        theArticle = models.articles.objects.filter(id=article_id).first()
+        articleFormObj = myForms.articleForm(request=request,
+            data={
+                "title"         :theArticle.title,
+                "summary"       :theArticle.summary,
+                "content"       :theArticle.detail.content,
+                "articleType"   :theArticle.articleType,
+                "classifications":theArticle.classification,
+                "labels"        :theArticle.labelarticlerelationship_set.values('label')
+            }
+        )
+        return render(request, 'backend/articleBase.html', {'tabs':tabs, 'theTabCaption': u'文章管理', 'crumbs': [u'创建文章'], 'articleForm':articleFormObj})
+
 def createArticle(request, tabs):
     if 'GET' == request.method:
         return render(request, 'backend/createArticle.html', {'tabs':tabs, 'theTabCaption': u'文章管理', 'crumbs': [u'创建文章'], 'articleForm':myForms.articleForm(request)})
