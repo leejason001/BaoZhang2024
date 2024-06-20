@@ -16,7 +16,6 @@
         }
         $(document).ready(function () {
             initKindEditor();
-            console.log($('#articleContent').val())
             theKindEditor.html($('#articleContent').val())
 
         })
