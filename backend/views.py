@@ -23,7 +23,6 @@ def editArticle(request, tabs, article_id):
         )
         return render(request, 'backend/articleBase.html', {'tabs':tabs, 'theTabCaption': u'文章管理', 'crumbs': [u'创建文章'], 'articleForm':articleFormObj})
     elif 'POST' == request.method:
-        print('pppppppppppppppp')
         value = myForms.articleForm( request, request.POST )
         if value.is_valid():
             content = value.cleaned_data.pop('content')
@@ -39,14 +38,19 @@ def editArticle(request, tabs, article_id):
             models.articles.objects.filter(id=theArticle.id).update(**value.cleaned_data)
             return redirect( '/backend' )
         else:
-            print('ddddddddddddddddddddd')
             return render(request, 'backend/createArticle.html', {'tabs':tabs, 'theTabCaption': u'文章管理', 'crumbs': [u'创建文章'],
                                                                   'articleForm':myForms.articleForm(request, request.POST), 'value':value})
 
 
 def createArticle(request, tabs):
     if 'GET' == request.method:
-        return render(request, 'backend/createArticle.html', {'tabs':tabs, 'theTabCaption': u'文章管理', 'crumbs': [u'创建文章'], 'articleForm':myForms.articleForm(request)})
+        return render(request, 'backend/createArticle.html', {'tabs':tabs, 'theTabCaption': u'文章管理', 'crumbs': [u'创建文章'], 'articleForm':myForms.articleForm(request,
+                                                                                                                                                            data={
+                                                                                                                                                                "articleType": 1,
+                                                                                                                                                                "classifications": 1,
+                                                                                                                                                                "labels":1
+                                                                                                                                                            }
+                                                                                                                                                            )})
     elif 'POST' == request.method:
         value = myForms.articleForm(request, request.POST)
         # print(value.errors)
