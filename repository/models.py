@@ -51,7 +51,7 @@ class classifications(models.Model):
         return self.className
 
 class articlesDetail(models.Model):
-    content = models.CharField(max_length=256)
+    content = models.TextField()
 
 class articles(models.Model):
     title    = models.CharField(max_length=16)
