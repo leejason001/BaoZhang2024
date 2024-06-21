@@ -41,7 +41,7 @@ def editArticle(request, tabs, article_id):
         else:
             print('ddddddddddddddddddddd')
             return render(request, 'backend/createArticle.html', {'tabs':tabs, 'theTabCaption': u'文章管理', 'crumbs': [u'创建文章'],
-                                                                  'articleForm':myForms.articleForm(request), 'value':value})
+                                                                  'articleForm':myForms.articleForm(request, request.POST), 'value':value})
 
 
 def createArticle(request, tabs):
