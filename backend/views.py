@@ -23,6 +23,7 @@ def editArticle(request, tabs, article_id):
         )
         return render(request, 'backend/articleBase.html', {'tabs':tabs, 'theTabCaption': u'文章管理', 'crumbs': [u'创建文章'], 'articleForm':articleFormObj})
     elif 'POST' == request.method:
+        print('pppppppppppppppp')
         value = myForms.articleForm( request, request.POST )
         if value.is_valid():
             content = value.cleaned_data.pop('content')
@@ -36,8 +37,11 @@ def editArticle(request, tabs, article_id):
                 label_list.append(models.labelArticleRelationShip(article=theArticle, label_id=int(label)))
             models.labelArticleRelationShip.objects.bulk_create(label_list)
             models.articles.objects.filter(id=theArticle.id).update(**value.cleaned_data)
-
-        return redirect( '/backend' )
+            return redirect( '/backend' )
+        else:
+            print('ddddddddddddddddddddd')
+            return render(request, 'backend/createArticle.html', {'tabs':tabs, 'theTabCaption': u'文章管理', 'crumbs': [u'创建文章'],
+                                                                  'articleForm':myForms.articleForm(request), 'value':value})
 
 
 def createArticle(request, tabs):
