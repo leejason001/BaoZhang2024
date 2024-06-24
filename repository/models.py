@@ -112,6 +112,34 @@ class comments(models.Model):
     def __str__(self):
         return  self.content
 
+class troubleDetail(models.Model):
+    detailContent = models.TextField()
+
+class troubles(models.Model):
+    title = models.CharField(max_length=64)
+    summary = models.CharField(max_length=256)
+    detail  = models.ForeignKey(to=troubleDetail)
+    thePoser= models.ForeignKey(to=users, related_name='poser')
+    ctime   = models.DateTimeField()
+
+    markChoices = (
+        (0, 'bad'),
+        (1, 'common'),
+        (2, 'good'),
+    )
+    mark  = models.IntegerField(choices=markChoices, null=True, blank=True)
+
+    statusChoices = (
+        (0, 'Have not processed'),
+        (1, 'Processing'),
+        (2, 'Processed'),
+    )
+    status = models.IntegerField(choices=statusChoices, default=0)
+
+    theProcesser = models.ForeignKey(to=users, related_name='processer', null=True, blank=True)
+    solution     = models.TextField()
+    ptime        = models.DateTimeField(null=True, blank=True)
+
 
 
 
