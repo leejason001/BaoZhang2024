@@ -21,14 +21,8 @@ def createNewTrouble(request, tabs):
             detailObj = models.troubleDetail.objects.create(
                 detailContent = newTroubleData.cleaned_data.pop('detail')
             )
-            newTroubleData.cleaned_data.update({'detail':detailObj, 'ctime':datetime.now()})
-            models.troubles.objects.create(
-                title = newTroubleData.cleaned_data['title'],
-                summary = newTroubleData.cleaned_data['summary'],
-                detail  = detailObj,
-                thePoser_id = request.session['id_login'],
-                ctime       = datetime.now()
-            )
+            newTroubleData.cleaned_data.update({'detail':detailObj, 'thePoser_id':request.session['id_login'], 'ctime':datetime.now()})
+            models.troubles.objects.create(**newTroubleData.cleaned_data)
             return redirect('/backend/trouble/showTrouble.html')
         else:
             return render(request, 'backend/trouble_createNewTrouble.html',
