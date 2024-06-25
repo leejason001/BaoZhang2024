@@ -58,7 +58,7 @@ class articleForm(forms.Form):
             print('')
 
 class TroubleMaker(forms.Form):
-    title = fields.CharField(max_length=64)
+    title = fields.CharField(max_length=64, error_messages={'required':'Null title is not allowed!'})
     summary = fields.CharField(max_length=256)
     detail  = fields.CharField(widget=widgets.Textarea(
         attrs={'id':'detail'}
