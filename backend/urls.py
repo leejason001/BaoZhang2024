@@ -10,5 +10,6 @@ urlpatterns = [
     url( r'^editArticle/(?P<article_id>\d+).html$', backendManage.editArticle, {'tabs': tabs}),
     url(r'^(?P<one>\d*)/?(?P<two>\d*)/?$', backendManage.articleManager, {'tabs': tabs},),
     url(r'trouble/showTrouble.html', troubleManage.showTroubleList, {'tabs': tabs}),
-    url(r'trouble/createNewTrouble.html', troubleManage.createNewTrouble, {'tabs': tabs})
+    url(r'trouble/createNewTrouble.html', troubleManage.createNewTrouble, {'tabs': tabs}),
+    url(r'trouble/trouble-edit-(\d)+.html', troubleManage.editTrouble, {'tabs': tabs}),
 ]

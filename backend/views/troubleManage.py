@@ -27,3 +27,6 @@ def createNewTrouble(request, tabs):
         else:
             return render(request, 'backend/trouble_createNewTrouble.html',
                           {'tabs':tabs, 'troubleMakerForm': myForms.TroubleMaker(request.POST), 'newTroubleData':newTroubleData})
+
+def editTrouble(request, nid, tabs):
+    return HttpResponse(nid)

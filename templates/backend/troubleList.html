@@ -11,7 +11,7 @@
     <tbody>
         {% for trouble in troubles %}
         <tr>
-            <td>{{ trouble.title }}</td><td>{{ trouble.get_status_display }}</td><td>{{ trouble.ctime }}</td><td>{{ trouble.thePoser }}</td><td><a href="">删除</a><span>|</span><a href="">编辑</a></td>
+            <td>{{ trouble.title }}</td><td>{{ trouble.get_status_display }}</td><td>{{ trouble.ctime }}</td><td>{{ trouble.thePoser }}</td><td><a href="">删除</a><span>|</span><a href="trouble/trouble-edit-{{trouble.id}}.html">编辑</a></td>
         </tr>
         {% endfor %}
     </tbody>
