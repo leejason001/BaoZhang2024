@@ -29,4 +29,10 @@ def createNewTrouble(request, tabs):
                           {'tabs':tabs, 'troubleMakerForm': myForms.TroubleMaker(request.POST), 'newTroubleData':newTroubleData})
 
 def editTrouble(request, nid, tabs):
-    return HttpResponse(nid)
+    if 'GET' == request.method:
+        theTrouble = models.troubles.objects.get(id=nid)
+        theTroubleDetail = models.troubleDetail.objects.get(id=theTrouble.detail.id)
+        return render(request, 'backend/trouble_editTrouble.html', {'tabs': tabs, 'trouble_id': nid,
+                                                                    'troubleEditForm': myForms.TroubleMaker(data={'title':theTrouble.title,
+                                                                                                                  'summary':theTrouble.summary,
+                                                                                                                  'detail': theTroubleDetail.detailContent})})

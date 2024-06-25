@@ -1,0 +1,18 @@
+{% extends 'backend/backendBase.html' %}
+{% block css %}
+<link type="text/css" rel="stylesheet" href="/font_statics/css/backend/base.css">
+{% endblock %}
+{% block js %}
+<script type="text/javascript" src="/font_statics/js/kindeditor-all.js" ></script>
+<script type="text/javascript" src="/font_statics/js/kindeditor_editTrouble.js"></script>
+{% endblock %}
+
+{% block bodyRightContent %}
+<div><span>保障管理</span><span>/</span><span>编辑保障单</span></div>
+<form method="post" action="trouble/trouble-edit-{{trouble_id}}.html">
+    <div><span>标题：</span>{{ troubleEditForm.title }}</div>
+    <div><span>摘要：</span>{{ troubleEditForm.summary }}</div>
+    <div><span>详细：</span>{{ troubleEditForm.detail }}</div>
+    <input type="submit" value="提交">
+</form>
+{% endblock %}
