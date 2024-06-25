@@ -137,7 +137,7 @@ class troubles(models.Model):
     status = models.IntegerField(choices=statusChoices, default=0)
 
     theProcesser = models.ForeignKey(to=users, related_name='processer', null=True, blank=True)
-    solution     = models.TextField()
+    solution     = models.TextField(null=True, blank=True)
     ptime        = models.DateTimeField(null=True, blank=True)
 
 
