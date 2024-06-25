@@ -57,7 +57,12 @@ class articleForm(forms.Form):
         except:
             print('')
 
-
+class TroubleMaker(forms.Form):
+    title = fields.CharField(max_length=64)
+    summary = fields.CharField(max_length=256)
+    detail  = fields.CharField(widget=widgets.Textarea(
+        attrs={'id':'detail'}
+    ))
 
 
 

@@ -1,0 +1,18 @@
+{% extends './backendBase.html' %}
+{% block css %}
+<link type="text/css" rel="stylesheet" href="/font_statics/css/backend/base.css">
+{% endblock %}
+{% block js %}
+<script type="text/javascript" src="/font_statics/js/kindeditor-all.js" ></script>
+<script type="text/javascript" src="/font_statics/js/kindeditor_createNewTrouble.js"></script>
+{% endblock %}
+{% block bodyRightContent %}
+<div><span>报障管理</span><span>/</span><span>创建故障</span></div>
+<form method="post" action="trouble/createNewTrouble.html">
+    {% csrf_token %}
+    <div><span>标题：</span>{{ troubleMakerForm.title }}<span>{{ newTroubleData.errors.title.0 }}</span></div>
+    <div><span>摘要：</span>{{ troubleMakerForm.summary }}</div>
+    <div><span>详细：</span>{{ troubleMakerForm.detail }}</div>
+    <input type="submit" value="提交">
+</form>
+{% endblock %}
