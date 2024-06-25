@@ -30,7 +30,9 @@ def createNewTrouble(request, tabs):
 
 def editTrouble(request, nid, tabs):
     if 'GET' == request.method:
-        theTrouble = models.troubles.objects.get(id=nid)
+        theTrouble = models.troubles.objects.filter(id=nid, status=0).first()
+        if not theTrouble:
+            return HttpResponse(u'已接单，不能修改')
         theTroubleDetail = models.troubleDetail.objects.get(id=theTrouble.detail.id)
         return render(request, 'backend/trouble_editTrouble.html', {'tabs': tabs, 'trouble_id': nid,
                                                                     'troubleEditForm': myForms.TroubleMaker(data={'title':theTrouble.title,
@@ -39,20 +41,34 @@ def editTrouble(request, nid, tabs):
     elif 'POST' == request.method:
         editTroubleForm = myForms.TroubleMaker(request.POST)
         if editTroubleForm.is_valid():
-            theTrouble       = models.troubles.objects.filter(id=nid, status=0)
-            if theTrouble:
-                theTroubleDetail = models.troubleDetail.objects.filter( id=theTrouble[0].detail.id )
-                theTroubleDetail.update( detailContent=editTroubleForm.cleaned_data.pop( 'detail' ) )
-                editTroubleForm.cleaned_data.update( {'detail': theTroubleDetail} )
-                theTrouble.update(
-                    title=editTroubleForm.cleaned_data['title'],
-                    summary=editTroubleForm.cleaned_data['summary'],
-                    detail=theTroubleDetail[0]
-                )
+            # theTrouble       = models.troubles.objects.filter(id=nid, status=0)
+            # if theTrouble:
+            #     theTroubleDetail = models.troubleDetail.objects.filter( id=theTrouble[0].detail.id )
+            #     v = theTrouble.update(
+            #         title=editTroubleForm.cleaned_data['title'],
+            #         summary=editTroubleForm.cleaned_data['summary'],
+            #         detail=theTroubleDetail[0]
+            #     )
+            #
+            #
+            #     theTroubleDetail.update( detailContent=editTroubleForm.cleaned_data.pop( 'detail' ) )
+            #     editTroubleForm.cleaned_data.update( {'detail': theTroubleDetail} )
+            #
+            #     return redirect( '/backend/trouble/showTrouble.html' )
+            # else:
+            #     return HttpResponse(u"已接单，不能修改")
 
-                return redirect( '/backend/trouble/showTrouble.html' )
+            theTroubleDetail = models.troubleDetail.objects.filter( id=models.troubles.objects.get(id=nid).detail.id )
+            v = models.troubles.objects.filter(id=nid, status=0).update(
+                title=editTroubleForm.cleaned_data['title'],
+                summary=editTroubleForm.cleaned_data['summary'],
+                detail=theTroubleDetail[0]
+            )
+            if 0 == v:
+                return HttpResponse( u"已接单，不能修改" )
             else:
-                return HttpResponse(u"已接单，不能修改")
+                theTroubleDetail.update( detailContent=editTroubleForm.cleaned_data.pop( 'detail' ) )
+                return redirect( '/backend/trouble/showTrouble.html' )
         else:
             return render(request, 'backend/trouble_editTrouble.html', {'tabs': tabs, 'trouble_id': nid,
                                                                         'troubleEditForm': myForms.TroubleMaker(request.POST)})
