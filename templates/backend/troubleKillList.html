@@ -1,0 +1,27 @@
+{% extends 'backend/backendBase.html' %}
+{% block css %}
+<link type="text/css" rel="stylesheet" href="/font_statics/css/backend/base.css">
+<link type="text/css" rel="stylesheet" href="/font_statics/css/backend/trouble.css">
+{% endblock %}
+{% block bodyRightContent %}
+<div><span>报障列表</span><span>/</span><span>处理报障列表</span></div>
+<table>
+    <thead><th>标题</th><th>状态</th><th>创建时间</th><th>创建人</th><th>操作</th></thead>
+    {% for trouble in troubles %}
+    <tr><td>{{ trouble.title }}</td><td>{{ trouble.get_status_display }}</td><td>{{ trouble.ctime }}</td><td>{{ trouble.thePoser.username }}</td>
+    <td>
+        {% if 0 == trouble.status %}
+            <a href="">抢单</a>
+        {% elif 1 == trouble.status %}
+            <a href="">处理订单</a>
+        {% else %}
+            <a href="">解决方案</a>
+        {% endif %}
+            <span>|</span>
+            <a href="">删除</a>
+            <span>|</span>
+            <a href="">编辑</a>
+    </td></tr>
+    {% endfor %}
+</table>
+{% endblock %}
