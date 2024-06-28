@@ -123,9 +123,9 @@ class troubles(models.Model):
     ctime   = models.DateTimeField()
 
     markChoices = (
-        (0, 'bad'),
-        (1, 'common'),
-        (2, 'good'),
+        (1, 'bad'),
+        (2, 'common'),
+        (3, 'good'),
     )
     mark  = models.IntegerField(choices=markChoices, null=True, blank=True)
 
