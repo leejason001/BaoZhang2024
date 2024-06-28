@@ -69,6 +69,10 @@ class solveTroubleForm(forms.Form):
         attrs={'id':'solution'}
     ))
 
+class seekTroubleSolutionForm(forms.Form):
+    marks = fields.IntegerField(widget=django_widgets.RadioSelect(choices=models.troubles.markChoices))
+
+
 
 
 

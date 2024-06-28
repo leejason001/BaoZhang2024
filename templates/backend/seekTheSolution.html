@@ -1,0 +1,17 @@
+{% extends "backend/backendBase.html" %}
+{% block css %}
+<link type="text/css" rel="stylesheet" href="/font_statics/css/backend/base.css">
+{% endblock %}
+
+{% block bodyRightContent %}
+<div><span>报障管理</span><span>/</span><span>查看解决方案</span></div>
+<p>
+    <h1>{{ trouble.title }}</h1>
+    <p>{{ trouble.solution }}</p>
+    <form method="post" action="/backend/trouble/seekTheSolution-{{ trouble.id }}.html">
+        {% csrf_token %}
+        <div><span>评分：</span>{{ seekTroubleSolutionForm.marks }}</div>
+        <input type="submit" >
+    </form>
+</p>
+{% endblock %}

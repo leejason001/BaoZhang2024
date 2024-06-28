@@ -93,4 +93,20 @@ def solveTrouble(request, nid, tabs):
                                                                          'solutionForm': theSolutionForm,
                                                                          'trouble':theTrouble})
 
-
+def seekTheSolution(request, nid, tabs):
+    theTrouble = models.troubles.objects.get(id=nid, thePoser=request.session['id_login'])
+    if not theTrouble:
+        return HttpResponse('你无权查看')
+    if 'GET' == request.method:
+        return render(request, 'backend/seekTheSolution.html', {'tabs':tabs, 'trouble': theTrouble, 'seekTroubleSolutionForm': myForms.seekTroubleSolutionForm()})
+    elif 'POST' == request.method:
+        theForm = myForms.seekTroubleSolutionForm(request.POST)
+        print(1111111111)
+        if theForm.is_valid():
+            print(2222222222222)
+            theTrouble.mark = theForm.cleaned_data['marks']
+            theTrouble.save()
+            return redirect('/backend/trouble/trouble-killList.html')
+        else:
+            print(33333333333)
+            return render(request, 'backend/seekTheSolution.html', {'tabs':tabs, 'trouble': theTrouble, 'seekTroubleSolutionForm': theForm})
