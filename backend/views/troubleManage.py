@@ -63,8 +63,6 @@ def showTroubleKillList(request, tabs):
     return render(request, 'backend/troubleKillList.html', {'troubles':troubles, 'tabs':tabs})
 
 def robTrouble(request, nid, tabs):
-    print(nid)
-    print(models.troubles.objects.filter(id=nid, status=0))
     rowNumber = models.troubles.objects.filter(id=nid, status=0).update(status=1, theProcesser_id=request.session['id_login'])
     if not rowNumber:
         return HttpResponse('手速太慢了')
