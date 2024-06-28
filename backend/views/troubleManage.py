@@ -63,11 +63,34 @@ def showTroubleKillList(request, tabs):
     return render(request, 'backend/troubleKillList.html', {'troubles':troubles, 'tabs':tabs})
 
 def robTrouble(request, nid, tabs):
-    rowNumber = models.troubles.objects.filter(id=nid, status=0).update(status=1)
+    rowNumber = models.troubles.objects.filter(id=nid, status=0).update(status=1, theProcesser_id=request.session['id_login'])
     if not rowNumber:
         return HttpResponse('手速太慢了')
     return render(request, 'backend/trouble_solveTrouble.html', {'tabs': tabs,
                                                                  'solutionForm': myForms.solveTroubleForm(),
                                                                  'trouble':models.troubles.objects.get(id=nid)})
+
+def solveTrouble(request, nid, tabs):
+    theTrouble = models.troubles.objects.get( id=nid, status=1, theProcesser_id=request.session['id_login'] )
+    if 'GET' == request.method:
+        if not theTrouble:
+            return HttpResponse('单子已被别人抢走')
+        else:
+            return render(request, 'backend/trouble_solveTrouble.html', {'tabs':tabs,
+                                                                         'solutionForm': myForms.solveTroubleForm(),
+                                                                         'trouble':theTrouble})
+    elif 'POST' == request.method:
+        if not theTrouble:
+            return HttpResponse('去你妈的')
+        theSolutionForm = myForms.solveTroubleForm(request.POST)
+        if theSolutionForm.is_valid():
+            lineNumber = models.troubles.objects.filter(id=nid, status=1).update(status=2, solution=theSolutionForm.cleaned_data['solution'], ptime=datetime.now())
+            if not lineNumber:
+                return HttpResponse('修改失败')
+            return redirect('/backend/trouble/trouble-killList.html')
+        else:
+            return render(request, 'backend/trouble_solveTrouble.html', {'tabs':tabs,
+                                                                         'solutionForm': theSolutionForm,
+                                                                         'trouble':theTrouble})
 
 

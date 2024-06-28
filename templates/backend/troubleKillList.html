@@ -11,9 +11,9 @@
     <tr><td>{{ trouble.title }}</td><td>{{ trouble.get_status_display }}</td><td>{{ trouble.ctime }}</td><td>{{ trouble.thePoser.username }}</td>
     <td>
         {% if 0 == trouble.status %}
-            <a href="trouble/trouble-rob-{{ trouble.id }}.html">抢单</a>
+            <a href="trouble-rob-{{ trouble.id }}.html">抢单</a>
         {% elif 1 == trouble.status %}
-            <a href="">处理订单</a>
+            <a href="trouble-{{ trouble.id }}-solution.html">处理订单</a>
         {% else %}
             <a href="">解决方案</a>
         {% endif %}

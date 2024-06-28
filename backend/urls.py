@@ -13,5 +13,6 @@ urlpatterns = [
     url(r'trouble/createNewTrouble.html', troubleManage.createNewTrouble, {'tabs': tabs}),
     url(r'trouble/trouble-edit-(\d)+.html', troubleManage.editTrouble, {'tabs': tabs}),
     url(r'trouble/trouble-killList.html', troubleManage.showTroubleKillList, {'tabs': tabs}),
-    url(r'trouble/trouble-rob-(\d)+.html', troubleManage.robTrouble, {'tabs': tabs}),
+    url(r'trouble-rob-(\d)+.html', troubleManage.robTrouble, {'tabs': tabs}),
+    url(r'trouble-(\d)+-solution.html', troubleManage.solveTrouble, {'tabs':tabs}),
 ]
