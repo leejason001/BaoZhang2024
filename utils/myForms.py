@@ -64,6 +64,11 @@ class TroubleMaker(forms.Form):
         attrs={'id':'detail'}
     ))
 
+class solveTroubleForm(forms.Form):
+    solution = fields.CharField(widget=widgets.Textarea(
+        attrs={'id':'solution'}
+    ))
+
 
 
 

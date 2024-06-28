@@ -1,0 +1,21 @@
+{% extends "backend/backendBase.html" %}
+{% block css %}
+<link type="text/css" rel="stylesheet" href="/font_statics/css/backend/base.css">
+{% endblock %}
+{% block js %}
+<script type="text/javascript" src="/font_statics/js/kindeditor-all.js" ></script>
+<script type="text/javascript" src="/font_statics/js/kindeditor_solutionTrouble.js"></script>
+{% endblock %}
+
+{% block bodyRightContent %}
+    <div><span>报障管理</span><span>/</span><span>创建故障解决方案</span></div>
+    <p>
+        <h1>标题</h1>
+        <p>{{ trouble.title }}</p>
+    </p>
+    <form method="post" action="/backend/trouble/trouble-{{ trouble.id }}-solution.html">
+        <h1>解决方案</h1>
+        <div>{{ solutionForm.solution }}<span>{{ solutionForm.errors.solution.0 }}</span></div>
+        <input type="submit" value="提交解决方案">
+    </form>
+{% endblock %}

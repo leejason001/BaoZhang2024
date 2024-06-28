@@ -61,3 +61,13 @@ def showTroubleKillList(request, tabs):
     from django.db.models import Q
     troubles = models.troubles.objects.filter(Q(thePoser_id=request.session['id_login'])|Q(status=0)).only('title', 'status', 'ctime', 'thePoser').order_by('status')
     return render(request, 'backend/troubleKillList.html', {'troubles':troubles, 'tabs':tabs})
+
+def robTrouble(request, nid, tabs):
+    rowNumber = models.troubles.objects.filter(id=nid, status=0).update(status=1)
+    if not rowNumber:
+        return HttpResponse('手速太慢了')
+    return render(request, 'backend/trouble_solveTrouble.html', {'tabs': tabs,
+                                                                 'solutionForm': myForms.solveTroubleForm(),
+                                                                 'trouble':models.troubles.objects.get(id=nid)})
+
+
