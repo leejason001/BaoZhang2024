@@ -16,6 +16,7 @@
     <form method="post" action="/backend/trouble/trouble-{{ trouble.id }}-solution.html">
         {% csrf_token %}
         <h1>解决方案</h1>
+        <div>{{ solutionForm.solutionChoices }}<input type="checkbox" id="solutionChoicesOrNot"></div>
         <div>{{ solutionForm.solution }}<span>{{ solutionForm.errors.solution.0 }}</span></div>
         <input type="submit" value="提交解决方案">
     </form>

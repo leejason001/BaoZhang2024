@@ -65,6 +65,7 @@ class TroubleMaker(forms.Form):
     ))
 
 class solveTroubleForm(forms.Form):
+    solutionChoices = fields.ChoiceField(choices=[('1', '选项1'),('2', '选项2'),('3', '选项3'),], widget=widgets.Select())
     solution = fields.CharField(widget=widgets.Textarea(
         attrs={'id':'solution'}
     ))
