@@ -65,10 +65,20 @@ class TroubleMaker(forms.Form):
     ))
 
 class solveTroubleForm(forms.Form):
-    solutionChoices = fields.ChoiceField(choices=[('1', '选项1'),('2', '选项2'),('3', '选项3'),], widget=widgets.Select())
+    # solutionChoices = fields.ChoiceField(choices=[('0',''),('1', '选项1'),('2', '选项2'),('3', '选项3'),], widget=widgets.Select())
+    solutionChoices = fields.ChoiceField( choices=[],
+                                          widget=widgets.Select() )
     solution = fields.CharField(widget=widgets.Textarea(
         attrs={'id':'solution'}
     ))
+    def __init__(self, *args, **kwargs):
+        super(solveTroubleForm, self).__init__(*args, **kwargs)
+        try:
+            solutionValues = [('0','')]
+            solutionValues += models.solutionAlternated.objects.all().values_list('id', 'title')
+            self.fields['solutionChoices'].choices = solutionValues
+        except:
+            print('')
 
 class seekTroubleSolutionForm(forms.Form):
     marks = fields.IntegerField(widget=django_widgets.RadioSelect(choices=models.troubles.markChoices))

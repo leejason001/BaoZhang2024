@@ -140,6 +140,10 @@ class troubles(models.Model):
     solution     = models.TextField(null=True, blank=True)
     ptime        = models.DateTimeField(null=True, blank=True)
 
+class solutionAlternated(models.Model):
+    title = models.CharField(max_length=64)
+    content = models.TextField()
+
 
 
 
