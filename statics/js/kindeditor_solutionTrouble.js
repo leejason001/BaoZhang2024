@@ -16,4 +16,7 @@ function initKindEditor() {
 }
 $(document).ready(function() {
     initKindEditor();
+    $('select[name=solutionChoices]').change(function (event, a) {
+        console.log($('select[name=solutionChoices] option:selected').attr('value'))
+    })
 })

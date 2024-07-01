@@ -22,3 +22,5 @@ admin.site.register(models.comments)
 
 admin.site.register(models.troubles)
 admin.site.register(models.troubleDetail)
+admin.site.register(models.solutionAlternated)
+
