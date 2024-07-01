@@ -118,4 +118,4 @@ def getSolutionAlternatedContent(request):
     except:
         print('eeeeeeeee')
 
-    return JsonResponse({'content':'cccccccccccccccccccc'})
+    return HttpResponse('hhhhhhhhhhhhhhhhhhhhhhhhhh')

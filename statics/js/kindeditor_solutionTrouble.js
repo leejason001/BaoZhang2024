@@ -22,10 +22,8 @@ $(document).ready(function() {
                 url:'/backend/getSolutionAlternatedContent',
                 type: 'get',
                 data: {'solutionAlternatedId': $('select[name=solutionChoices] option:selected').attr('value')},
-                dataType: 'json',
                 success: function (arg) {
                     console.log(arg)
-                    console.log(arg.content)
 
                 }
             })
