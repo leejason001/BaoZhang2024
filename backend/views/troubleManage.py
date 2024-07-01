@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render, HttpResponse, redirect
 from datetime import datetime
+from django.http import JsonResponse
 
 from repository import models
 from utils import myForms
@@ -110,3 +111,11 @@ def seekTheSolution(request, nid, tabs):
             return redirect('/backend/trouble/trouble-killList.html')
         else:
             return render(request, 'backend/seekTheSolution.html', {'tabs':tabs, 'trouble': theTrouble, 'seekTroubleSolutionForm': theForm})
+
+def getSolutionAlternatedContent(request):
+    try:
+        print(request.GET.get('solutionAlternatedId'))
+    except:
+        print('eeeeeeeee')
+
+    return JsonResponse({'content':'cccccccccccccccccccc'})

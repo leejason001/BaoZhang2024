@@ -16,7 +16,19 @@ function initKindEditor() {
 }
 $(document).ready(function() {
     initKindEditor();
-    $('select[name=solutionChoices]').change(function (event, a) {
-        console.log($('select[name=solutionChoices] option:selected').attr('value'))
+    $('select[name=solutionChoices]').change(function (event) {
+        if(true == $(this).parent().children('input').prop('checked')) {
+            $.ajax({
+                url:'/backend/getSolutionAlternatedContent',
+                type: 'get',
+                data: {'solutionAlternatedId': $('select[name=solutionChoices] option:selected').attr('value')},
+                dataType: 'json',
+                success: function (arg) {
+                    console.log(arg)
+                    console.log(arg.content)
+
+                }
+            })
+        }
     })
 })
