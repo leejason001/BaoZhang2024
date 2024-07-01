@@ -114,8 +114,12 @@ def seekTheSolution(request, nid, tabs):
 
 def getSolutionAlternatedContent(request):
     try:
-        print(request.GET.get('solutionAlternatedId'))
+        if request.GET.get('solutionAlternatedId') != '0':
+            solution = models.solutionAlternated.objects.get(id=request.GET.get('solutionAlternatedId'))
+            return HttpResponse( solution.content )
+        else:
+            return HttpResponse('')
     except:
         print('eeeeeeeee')
+        return HttpResponse( 'eeeeeeeee' )
 
-    return HttpResponse('hhhhhhhhhhhhhhhhhhhhhhhhhh')

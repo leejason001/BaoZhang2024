@@ -23,7 +23,8 @@ $(document).ready(function() {
                 type: 'get',
                 data: {'solutionAlternatedId': $('select[name=solutionChoices] option:selected').attr('value')},
                 success: function (arg) {
-                    console.log(arg)
+                    theKindEditor.html(arg)
+                    $('#solution').val(arg)
 
                 }
             })
