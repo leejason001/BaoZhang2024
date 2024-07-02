@@ -17,4 +17,5 @@ urlpatterns = [
     url(r'trouble-(\d+)-solution.html', troubleManage.solveTrouble, {'tabs':tabs}),
     url(r'seekTheSolution-(\d+).html', troubleManage.seekTheSolution, {'tabs':tabs}),
     url(r'getSolutionAlternatedContent', troubleManage.getSolutionAlternatedContent),
+    url(r'trouble-report.html', troubleManage.troubleReport),
 ]

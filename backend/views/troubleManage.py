@@ -123,3 +123,6 @@ def getSolutionAlternatedContent(request):
         print('eeeeeeeee')
         return HttpResponse( 'eeeeeeeee' )
 
+def troubleReport(request):
+    return render(request, 'backend/trouble_report.html')
+
