@@ -126,3 +126,21 @@ def getSolutionAlternatedContent(request):
 def troubleReport(request):
     return render(request, 'backend/trouble_report.html')
 
+def getTroubleJsonReport(request):
+    users = models.users.objects.all()
+    series = []
+    for user in users:
+        from django.db import connection, connections
+        cursor = connection.cursor()
+        cursor.execute("""select strftime('%%s', strftime("%%Y-%%m-01", ctime))*1000, count(id) from repository_troubles where theProcesser_id = %s group by strftime("%%Y-%%m", ctime)""", [user.id, ])
+        ele = {
+            "name": user.username,
+            "data": cursor.fetchall()
+        }
+        series.append(ele)
+    print(series)
+    import json
+    return HttpResponse(json.dumps(series))
+
+
+

@@ -92,15 +92,15 @@
             ]
         };
         // 数据库中获取 series
-        $('#container').highcharts(config);
-        {#$.ajax({#}
-        {#    url: '/backend/trouble-json-report.html',#}
-        {#    dataType: 'json',#}
-        {#    success:function(arg){#}
-        {#        config['series'] = arg;#}
-        {#        $('#container').highcharts(config);#}
-        {#    }#}
-        {#})#}
+        {#$('#container').highcharts(config);#}
+        $.ajax({
+            url: '/backend/trouble-json-report.html',
+            dataType: 'json',
+            success:function(arg){
+                config['series'] = arg;
+                $('#container').highcharts(config);
+            }
+        })
 
     }
     
