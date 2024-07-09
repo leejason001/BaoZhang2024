@@ -138,7 +138,7 @@ def getTroubleJsonReport(request):
             "data": cursor.fetchall()
         }
         series.append(ele)
-    print(series)
+
     import json
     return HttpResponse(json.dumps(series))
 

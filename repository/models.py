@@ -11,6 +11,10 @@ class users(models.Model):
     password = models.CharField(max_length=10)
     email    = models.EmailField(max_length=16)
     headPicture_path = models.CharField(max_length=128)
+    class Meta:
+        verbose_name_plural = 'User Table'
+    def __str__(self):
+        return self.username
 
 
 class blogs(models.Model):
@@ -143,6 +147,53 @@ class troubles(models.Model):
 class solutionAlternated(models.Model):
     title = models.CharField(max_length=64)
     content = models.TextField()
+
+class Role(models.Model):
+    caption = models.CharField(max_length=64)
+    def __str__(self):
+        return self.caption
+
+class User2Role(models.Model):
+    user = models.ForeignKey(to=users)
+    role = models.ForeignKey(to=Role)
+    def __str__(self):
+        return '%s-%s'%(self.user.username, self.role.caption,)
+
+class Action(models.Model):
+    caption = models.CharField(max_length=64)
+    code    = models.CharField(max_length=32)
+    def __str__(self):
+        return self.caption
+
+
+
+
+
+class Menu(models.Model):
+    caption = models.CharField(max_length=64)
+    parentMenu = models.ForeignKey(to='self', related_name='p', null=True, blank=True)
+
+class Permission(models.Model):
+    caption = models.CharField(max_length=64)
+    url     = models.CharField(max_length=256)
+    menu    = models.ForeignKey(to=Menu, null=True, blank=True)
+    def __str_(self):
+        return '%s-%s'%(self.caption, self.url)
+
+class Permission2Action(models.Model):
+    permission = models.ForeignKey(to=Permission)
+    action     = models.ForeignKey(to=Action)
+    def __str__(self):
+        return '%s-%s:%s/?t=%s'%(self.permission.caption, self.action.caption, self.permission.url, self.action.code)
+
+class Permission2Action2Role(models.Model):
+    p2a   = models.ForeignKey(to=Permission2Action)
+    role  = models.ForeignKey(to=Role)
+    def __str__(self):
+        return '%s==>%s'%(self.role.caption, self.p2a)
+
+
+
 
 
 
