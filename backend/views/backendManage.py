@@ -6,6 +6,7 @@ from datetime import datetime
 
 from repository import models
 from utils import myForms
+from utils.commonTools import permission
 # Create your views here.
 
 def editArticle(request, tabs, article_id):
@@ -102,3 +103,11 @@ def articleManager(request, tabs, one, two):
     flat = {"one":one, "two": two}
 
     return render(request, 'backend/articleManager.html', {'tabs': tabs, 'theTabCaption': u'文章管理', 'crumbs': [u'文章列表'], 'classifications': classifications, 'labels':labels, 'articles': articles, 'flat': flat})
+
+
+@permission
+def showMenuTree(request,*args,**kwargs):
+    menu_string = kwargs.get('menu_string')
+
+    print(menu_string)
+    return render(request, 'backend/showMenuTree.html', {'menuDomTrees':menu_string})

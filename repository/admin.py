@@ -30,4 +30,5 @@ admin.site.register(models.User2Role)
 admin.site.register(models.Permission)
 admin.site.register(models.Permission2Action)
 admin.site.register(models.Permission2Action2Role)
+admin.site.register(models.Menu)
 

@@ -9,6 +9,8 @@ urlpatterns = [
     url( r'^createArticle.html$', backendManage.createArticle, {'tabs': tabs}, ),
     url( r'^editArticle/(?P<article_id>\d+).html$', backendManage.editArticle, {'tabs': tabs}),
     url(r'^(?P<one>\d*)/?(?P<two>\d*)/?$', backendManage.articleManager, {'tabs': tabs},),
+    url( r'showMenuTree.html', backendManage.showMenuTree ),
+
     url(r'trouble/showTrouble.html', troubleManage.showTroubleList, {'tabs': tabs}),
     url(r'trouble/createNewTrouble.html', troubleManage.createNewTrouble, {'tabs': tabs}),
     url(r'trouble/trouble-edit-(\d+).html', troubleManage.editTrouble, {'tabs': tabs}),
@@ -19,4 +21,5 @@ urlpatterns = [
     url(r'getSolutionAlternatedContent', troubleManage.getSolutionAlternatedContent),
     url(r'trouble-report.html', troubleManage.troubleReport),
     url(r'trouble-json-report.html', troubleManage.getTroubleJsonReport),
+
 ]

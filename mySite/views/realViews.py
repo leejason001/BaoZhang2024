@@ -8,7 +8,7 @@ from django.db.models import Q
 import io
 
 from repository import models
-from utils import pagination, check_code, myForms
+from utils import pagination, check_code, myForms, commonTools
 
 
 # Create your views here.
@@ -75,6 +75,14 @@ def doLogin(request):
                 if loginUser:
                     request.session['id_login'] = loginUser.id
                     request.session['username'] = loginUser.username
+
+
+                    request.session['user_info'] = {'id_login': loginUser.id, 'username': loginUser.username}
+                    commonTools.MenuHelper( request, loginUser.username )
+
+
+
+
                     return redirect( '/' )
                 else:
                     return render(request, 'mySite/login.html', {'loginForm': loginForm, 'loginError': 'username or password is Error'})
