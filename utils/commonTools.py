@@ -49,12 +49,14 @@ class MenuHelper( object ):
                 filter( permission2action2role__role__in=role_list ). \
                 values( 'permission__url', 'action__code' ).distinct()
 
-            permission2action_dict = {}
-            for item in permission2action_list:
-                if item['permission__url'] in permission2action_dict:
-                    permission2action_dict[item['permission__url']].append( item['action__code'] )
+            permission_action = {}
+            for content in permission2action_list:
+                if content['permission__url'] in permission_action:
+                    permission_action[content['permission__url']].append( content['action__code'] )
                 else:
-                    permission2action_dict[item['permission__url']] = [item['action__code'], ]
+                    permission_action[content['permission__url']] = [content['action__code'], ]
+
+            print(1111111111111111111)
 
             menu_leaf_list = list( models.Permission2Action.objects. \
                                    filter( permission2action2role__role__in=role_list ).exclude( permission__menu__isnull=True ). \
@@ -63,7 +65,7 @@ class MenuHelper( object ):
             menu_list = list( models.Menu.objects.values( 'id', 'caption', 'parentMenu' ) )
 
             self.request.session['permission_info'] = {
-                'permission2action_dict': permission2action_dict,
+                'permission2action_dict': permission_action,
                 'menu_leaf_list': menu_leaf_list,
                 'menu_list': menu_list,
             }
@@ -178,16 +180,3 @@ class MenuHelper( object ):
 
         return action_list
 
-
-def permission(func):
-    def inner(request,*args,**kwargs):
-        user_info = request.session.get('user_info')
-        if not user_info:
-            return redirect('/login.html')
-        obj = MenuHelper(request, user_info['username'])
-        # action_list = obj.actions()
-        # if not action_list:
-        #     return HttpResponse('')
-        kwargs['menu_string'] = obj.menu_tree()
-        return func(request,*args,**kwargs)
-    return inner
