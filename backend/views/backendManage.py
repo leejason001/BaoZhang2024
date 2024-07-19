@@ -6,8 +6,6 @@ from datetime import datetime
 
 from repository import models
 from utils import myForms
-from utils import commonTools
-
 # Create your views here.
 
 def editArticle(request, tabs, article_id):
@@ -105,19 +103,111 @@ def articleManager(request, tabs, one, two):
 
     return render(request, 'backend/articleManager.html', {'tabs': tabs, 'theTabCaption': u'文章管理', 'crumbs': [u'文章列表'], 'classifications': classifications, 'labels':labels, 'articles': articles, 'flat': flat})
 
+def menu_content(nodeList):
+    response = ''
+    menuDomNode = """
+        <div class="item %s">
+            <div class="caption">%s</div>
+            <div class="content">%s</div>
+        </div>
+    """
+    for node in nodeList:
+        print(node)
+        if(False == node['saved']):
+            continue
+        active = ''
+        if(True == node['expand']):
+            active = 'active'
+        if('url' in node):
+            response += "<a class='%s' href='%s'>%s</a>" % (active, node['url'], node['caption'])
+        else:
+            content = menu_content(node['child'])
+            response += menuDomNode %(active, node['caption'], content)
+    return response
+
+def showMenuTree(request):
+    currentLeaf = request.path_info
+    menu_leaf_list = request.session['permission_action_info']['menu_leaf_list']
+    menu_leaf_dict={}
+    for item in menu_leaf_list:
+        item = {
+            'id':     item['permission_id'],
+            'url':    item['permission__url'],
+            'caption':item['permission__caption'],
+            'parent_id': item['permission__menu'],
+            'saved'    : True,
+            'expand'   : False,
+            'child':     [],
+        }
+        if(item['parent_id'] in menu_leaf_dict):
+            menu_leaf_dict[item['parent_id']].append(item)
+        else:
+            menu_leaf_dict[item['parent_id']] = [item,]
+            
+    menu_list = request.session['permission_action_info']['menu_list']
+    
+    menu_dict = {}
+    for menu in menu_list:
+        menu['child'] = []
+        menu['saved'] = False
+        menu['expand'] = False
+        menu_dict[menu['id']] = menu
+
+    for k,v in menu_leaf_dict.items():
+        menu_dict[k]['child'] = v
+        parentMenu = k
+        while parentMenu:
+            if False == menu_dict[parentMenu]['saved']:
+                menu_dict[parentMenu]['saved'] = True
+                parentMenu = menu_dict[parentMenu]['parentMenu']
+            else:
+                break
+
+    result = []
+
+    for row in menu_dict.values():
+        if not row['parentMenu']:
+            result.append(row)
+        else:
+            menu_dict[row['parentMenu']]['child'].append(row)
+    # for k,v in menu_dict.items():
+    #     currentParent = menu_dict[k]['parent_id']
+    #     if not currentParent:
+    #         result.append(v)
+    #     else:
+    #         menu_dict[currentParent]['child'].append(v)        
+            
+            
+    parentMenu = -1
+    for v in menu_leaf_dict.values():
+        for item in v:
+            print(item['url'])
+            print(currentLeaf)
+            if item['url'] == currentLeaf:
+                parentMenu = item['parent_id']
+    if parentMenu ==-1:
+        return HttpResponse('The permission of url is error!')
 
 
-def showMenuTree(request,*args,**kwargs):
-    user_info = request.session.get( 'user_info' )
-    if not user_info:
-        return redirect( '/login.html' )
-    obj = commonTools.MenuHelper( request, user_info['username'] )
-    # action_list = obj.actions()
-    # if not action_list:
-    #     return HttpResponse('')
-    kwargs['menu_string'] = obj.menu_tree()
+    while parentMenu:
+        menu_dict[parentMenu]['expand'] = True
+        parentMenu = menu_dict[parentMenu]['parentMenu']
 
-    menu_string = kwargs.get('menu_string')
-    print(22222222222222222)
+    menuDomTrees = ''
+    menuTreeNode = """
+        <div class="item %s">
+            <div class="title">%s</div>
+            <div class="content">%s</div>
+        </div>
+    """
+    for menuTree in result:
+        if False == menuTree['saved']:
+            continue
+        active=""
+        if True == menuTree['expand']:
+            active = 'active'
+        title = menuTree['caption']
+        content = menu_content(menuTree['child'])
+        menuDomTrees += menuTreeNode %(active, title, content)
 
-    return render(request, 'backend/showMenuTree.html', {'menuDomTrees':menu_string})
+    return render(request, 'backend/showMenuTree.html', {'menuDomTrees':menuDomTrees})
